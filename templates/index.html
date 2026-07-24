@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiaBeta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .bmi-calc-wrapper { margin-bottom: 4px; }
+        .bmi-toggle-btn {
+            background: #f0f4f8; border: 1px solid #ccc; border-radius: 6px;
+            padding: 6px 12px; cursor: pointer; font-size: 14px;
+        }
+        .bmi-panel {
+            border: 1px solid #ddd; border-radius: 6px; padding: 12px;
+            margin-top: 8px; background: #fafafa;
+        }
+        .bmi-inputs label { display: block; margin-bottom: 6px; font-size: 14px; }
+        .bmi-inputs input { margin-left: 6px; width: 100px; }
+        #bmiComputeBtn { margin-top: 6px; padding: 5px 14px; cursor: pointer; }
+        #bmiResultPreview { margin-top: 10px; font-weight: bold; color: #2a6f2a; font-size: 16px; }
+    </style>
+</head>
+<body class="home-page">
+    <main class="site-shell">
+        <section class="intro-stage animated-welcome" id="introStage" aria-label="Clinical Diabetes Risk Assessment">
+            <div class="intro-panel intro-panel-brand">
+                <img class="brand-logo" src="{{ url_for('static', filename='diabeta-logo.png') }}" alt="DiaBeta logo">
+                <p class="welcome-line">DiaBeta</p>
+                <h1>DiaBeta</h1>
+            </div>
+
+            <div class="intro-panel intro-panel-headline">
+                <p>Designed to assist healthcare professionals in evaluating a patient's risk of diabetes using clinical parameters and machine learning.</p>
+            </div>
+
+            <div class="intro-panel intro-panel-copy">
+                <p>This tool supports clinician decision-making with clear input structure and evidence-based lab thresholds.</p>
+            </div>
+
+            <button class="intro-cta" type="button" id="startAssessment">Start assessment</button>
+        </section>
+
+        <!-- Header, drawer overlay, and side drawer moved OUTSIDE assessment-section
+             so position:fixed is relative to the viewport, not a transformed ancestor -->
+        <div class="assessment-header">
+            <a class="brand-mark" href="/" aria-label="DiaBeta home">
+                <img src="{{ url_for('static', filename='diabeta-logo.png') }}" alt="DiaBeta logo">
+                <span>DiaBeta</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <rect x="3" y="3" width="7" height="7" rx="2" />
+                    <rect x="14" y="3" width="7" height="7" rx="2" />
+                    <rect x="3" y="14" width="7" height="7" rx="2" />
+                    <rect x="14" y="14" width="7" height="7" rx="2" />
+                </svg>
+            </button>
+            <nav class="top-nav" aria-label="Main navigation">
+                <a href="/records">Records</a>
+                <a href="/about">About</a>
+                <a href="/about-me">About Me</a>
+                <span class="assessment-pill">Private assessment</span>
+            </nav>
+        </div>
+
+        <div class="drawer-overlay" aria-hidden="true"></div>
+        <aside class="side-drawer" aria-hidden="true">
+            <button class="drawer-close" type="button" aria-label="Close navigation menu" data-drawer-close>&times;</button>
+            <nav class="drawer-nav" aria-label="Mobile navigation">
+                <a href="/records">Records</a>
+                <a href="/about">About</a>
+                <a href="/about-me">About Me</a>
+                <span class="assessment-pill">Private assessment</span>
+            </nav>
+        </aside>
+
+        <section class="assessment-section" id="assessmentSection" aria-label="Diabetes risk assessment">
+
+            <section class="app-hero home-bar" aria-label="Clinical Diabetes Risk Assessment overview">
+                <div class="hero-copy">
+                    <div class="hero-brand-lockup">
+                        <img class="brand-logo" src="{{ url_for('static', filename='diabeta-logo.png') }}" alt="DiaBeta logo">
+                        <span>DiaBeta</span>
+                    </div>
+                    <h1>DiaBeta</h1>
+                    <p>Clinical Diabetes Risk Assessment powered by machine learning for healthcare professionals.</p>
+
+                    <div class="hero-highlights">
+                        <div class="hero-highlight-card">
+                            <p class="eyebrow">Trusted by clinicians</p>
+                            <h3>Fast risk assessment with evidence-based clinical features.</h3>
+                        </div>
+                        <div class="hero-note-list">
+                            <div class="hero-note">
+                                <strong>Streamlined intake</strong>
+                                <p>Enter key patient metrics quickly with helpful field guidance.</p>
+                            </div>
+                            <div class="hero-note">
+                                <strong>Clear outputs</strong>
+                                <p>Risk scores and summary insights designed for clinical review.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-image-panel" aria-hidden="true">
+                    <img src="{{ url_for('static', filename='health-background.jpg') }}" alt="">
+                    <div class="hero-overlay-card">
+                        <p class="eyebrow">{{ 'Model probability' if latest_prob is not defined else 'Latest estimate' }}</p>
+                        <div class="hero-score">{{ latest_prob if latest_prob is defined else '5.5' }}<span>%</span></div>
+                        <p>{{ 'Sample estimate for standardized diabetes risk assessment.' if latest_prob is not defined else 'Based on recent patient inputs.' }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="assessment-layout">
+                <aside class="assessment-summary" aria-label="Assessment summary">
+                    <p class="eyebrow">Clinical assessment</p>
+                    <h2>Enter patient clinical parameters.</h2>
+                    <p class="summary-copy">Designed to assist healthcare professionals in evaluating a patient's risk of diabetes using clinical parameters and machine learning.</p>
+                    <div class="summary-metrics">
+                        <div>
+                            <strong>7</strong>
+                            <span>inputs</span>
+                        </div>
+                        <div>
+                            <strong>1</strong>
+                            <span>result</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <form class="assessment-form" method="POST">
+                    <div class="form-grid">
+                        <label class="field">
+                            <span>Patient Name</span>
+                            <input type="text" name="patient_name" placeholder="Full name" required>
+                        </label>
+
+                        <label class="field">
+                            <span>Patient Address</span>
+                            <input type="text" name="patient_address" placeholder="Home address" required>
+                        </label>
+
+                        <label class="field">
+                            <span>Age</span>
+                            <input type="number" name="age" min="1" max="120" placeholder="45" required>
+                        </label>
+
+                        <label class="field">
+                            <span>Sex</span>
+                            <select name="sex" required>
+                                <option value="" disabled selected>Select sex</option>
+                                <option value="0">Female</option>
+                                <option value="1">Male</option>
+                            </select>
+                        </label>
+
+                        <div class="field field-wide bmi-calc-wrapper">
+                            <button type="button" id="bmiToggleBtn" class="bmi-toggle-btn">
+                                BMI Calculator (optional helper)
+                            </button>
+
+                            <div id="bmiPanel" class="bmi-panel" style="display:none;">
+                                <div class="bmi-inputs">
+                                    <label>Weight (kg): <input type="number" id="bmiWeightKg" step="0.1" min="0"></label>
+                                    <label>Height (cm): <input type="number" id="bmiHeightCm" step="0.1" min="0"></label>
+                                </div>
+
+                                <button type="button" id="bmiComputeBtn">Calculate</button>
+                                <div id="bmiResultPreview"></div>
+                            </div>
+                        </div>
+
+                        <label class="field">
+                            <span>BMI <small>(kg/m²)</small></span>
+                            <input type="number" step="0.1" name="bmi" min="1" placeholder="27.5" required>
+                        </label>
+
+                        <label class="field">
+                            <span>Waist Circumference</span>
+                            <input type="number" step="0.1" name="waist_circumference_cm" min="1" placeholder="92.0" required>
+                            <small>Measured in centimeters</small>
+                        </label>
+
+                        <label class="field">
+                            <span>HbA1c <small>(%)</small></span>
+                            <input type="number" step="0.1" name="hba1c" min="1" placeholder="5.6" required>
+                            <small>Percent</small>
+                        </label>
+
+                        <label class="field">
+                            <span>Fasting Glucose <small>(mg/dL)</small></span>
+                            <input type="number" step="0.1" name="fasting_glucose_mgdl" min="1" placeholder="96" required>
+                            <small>mg/dL</small>
+                        </label>
+
+                        <label class="field field-wide">
+                            <span>Race/Ethnicity</span>
+                            <select name="race_ethnicity" required>
+                                <option value="" disabled selected>Select race or ethnicity</option>
+                                {% for code, label in race_map.items() %}
+                                    <option value="{{ code }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+
+                    <button class="primary-action" type="submit">Estimate risk</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const startButton = document.getElementById("startAssessment");
+        const introStage = document.getElementById("introStage");
+        const assessmentSection = document.getElementById("assessmentSection");
+        const shouldOpenAssessment = new URLSearchParams(window.location.search).get("assessment") === "1";
+
+        function openAssessment(shouldScroll = true) {
+            document.body.classList.add("assessment-ready");
+            introStage.setAttribute("aria-hidden", "true");
+            if (shouldScroll) {
+                assessmentSection.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+
+        if (shouldOpenAssessment) {
+            openAssessment(false);
+        }
+
+        startButton.addEventListener("click", () => {
+            openAssessment(true);
+        });
+    </script>
+
+    <script>
+    (function() {
+        const toggleBtn = document.getElementById('bmiToggleBtn');
+        const panel = document.getElementById('bmiPanel');
+        const computeBtn = document.getElementById('bmiComputeBtn');
+        const resultPreview = document.getElementById('bmiResultPreview');
+
+        toggleBtn.addEventListener('click', () => {
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        });
+
+        computeBtn.addEventListener('click', () => {
+            const weightKg = parseFloat(document.getElementById('bmiWeightKg').value);
+            const heightCm = parseFloat(document.getElementById('bmiHeightCm').value);
+
+            if (!weightKg || !heightCm) {
+                resultPreview.textContent = 'Enter weight and height';
+                return;
+            }
+
+            const heightM = heightCm / 100;
+            let bmi = weightKg / (heightM * heightM);
+            bmi = Math.round(bmi * 10) / 10;
+
+            resultPreview.textContent = `BMI: ${bmi} — enter this into the BMI field below`;
+        });
+    })();
+    </script>
+
+    <script>
+    (function () {
+        const toggleBtn = document.querySelector('[data-drawer-toggle]');
+        const closeBtn = document.querySelector('[data-drawer-close]');
+        const drawer = document.querySelector('.side-drawer');
+        const overlay = document.querySelector('.drawer-overlay');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            overlay.classList.add('open');
+            document.body.classList.add('drawer-open');
+            drawer.setAttribute('aria-hidden', 'false');
+            overlay.setAttribute('aria-hidden', 'false');
+            toggleBtn.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.classList.remove('drawer-open');
+            drawer.setAttribute('aria-hidden', 'true');
+            overlay.setAttribute('aria-hidden', 'true');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        toggleBtn.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDrawer();
+        });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About DiaBeta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="about-me-page">
+    <main class="page-shell">
+        <header class="result-header">
+            <a class="brand-mark" href="/?assessment=1" aria-label="DiaBeta assessment">
+                <img src="{{ url_for('static', filename='diabeta-logo.png') }}" alt="DiaBeta logo">
+                <span>DiaBeta</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="top-nav" aria-label="Main navigation">
+                <a href="/?assessment=1">Assessment</a>
+                <a href="/records">Records</a>
+                <a href="/about">About DiaBeta</a>
+            </nav>
+        </header>
+        <div class="drawer-overlay" aria-hidden="true"></div>
+        <aside class="side-drawer" aria-hidden="true">
+            <button class="drawer-close" type="button" aria-label="Close navigation menu" data-drawer-close>&times;</button>
+            <nav class="drawer-nav" aria-label="Mobile navigation">
+                <a href="/?assessment=1">Assessment</a>
+                <a href="/records">Records</a>
+                <a href="/about">About DiaBeta</a>
+            </nav>
+        </aside>
+
+        <section class="about-layout">
+            <div class="about-photo-panel">
+                <img src="{{ url_for('static', filename='profile-photo.png') }}" alt="Ezeji Godswill">
+            </div>
+
+            <div class="about-content">
+                <p class="eyebrow">Creator</p>
+                <h1>Ezeji Godswill</h1>
+                <p>Hello, my name is Ezeji Godswill. I am a Biomedical Engineering student and developer who loves artificial intelligence in healthcare. I created this clinical risk assessment tool to demonstrate how machine learning can support earlier diabetes risk evaluation.</p>
+
+                <div class="about-block">
+                    <h2>Why I built this tool</h2>
+                    <p>I wanted to show how machine learning can support early risk awareness in healthcare, while making the clinician experience simple and clear for rapid assessment.</p>
+                </div>
+
+                <div class="contact-row">
+                    <a href="https://github.com/cdzxs" target="_blank" rel="noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/ezeji-godswill-9aa573255/" target="_blank" rel="noreferrer">LinkedIn</a>
+                    <a href="mailto:ezejigodswill041@gmail.com">Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        (function () {
+            function setHeaderHeight() {
+                const header = document.querySelector('.assessment-header, .result-header');
+                if (!header) return;
+                const height = header.offsetHeight;
+                document.documentElement.style.setProperty('--header-h', (height + 16) + 'px');
+                // +16px gives a small visible gap so content doesn't touch the header edge
+            }
+
+            window.addEventListener('load', setHeaderHeight);
+            window.addEventListener('resize', setHeaderHeight);
+        })();
+</script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

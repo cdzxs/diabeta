@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Env files
+.env
+.venv/
+venv/
+ENV/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Data artifacts
+*.sqlite3
+*.db
+
+# Ignore pipelines / caches
+.cache/
