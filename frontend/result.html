@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result - DiaBeta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="result-page">
+    <main class="result-shell">
+        <header class="result-header">
+            <a class="brand-mark" href="index.html?assessment=1" aria-label="DiaBeta assessment">
+                <img src="diabeta-logo.png" alt="DiaBeta logo">
+                <span>DiaBeta</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="top-nav" aria-label="Main navigation">
+                <a href="records.html">Records</a>
+                <a href="about.html">About</a>
+                <a href="about_me.html">About Me</a>
+                <button class="secondary-action" type="button" data-download-current>Download PDF</button>
+                <a href="index.html?assessment=1" class="secondary-action">New Assessment</a>
+            </nav>
+        </header>
+
+        <div class="drawer-overlay" aria-hidden="true"></div>
+        <aside class="side-drawer" aria-hidden="true">
+            <button class="drawer-close" type="button" aria-label="Close navigation menu" data-drawer-close>&times;</button>
+            <nav class="drawer-nav" aria-label="Mobile navigation">
+                <a href="records.html">Records</a>
+                <a href="about.html">About</a>
+                <a href="about_me.html">About Me</a>
+                <a href="index.html?assessment=1">New Assessment</a>
+            </nav>
+        </aside>
+
+        <section class="result-hero" id="resultHero">
+            <div>
+                <p class="eyebrow">Assessment result</p>
+                <h1 id="tierTitle">– risk</h1>
+                <p class="result-copy">Your estimated likelihood of a high-risk diabetes profile is shown below.</p>
+            </div>
+
+            <div class="risk-score risk-circle">
+                <div class="risk-value"><span id="probValue">–</span><span class="percent">%</span></div>
+                <small>Model probability</small>
+            </div>
+
+            <div class="hero-overlay-card result-hero-card">
+                <p class="eyebrow">Model probability</p>
+                <div class="hero-score"><span id="probValue2">–</span><span>%</span></div>
+                <p>Based on the submitted patient details and model output.</p>
+            </div>
+        </section>
+
+        <section class="result-grid">
+            <div class="result-card gauge-card">
+                <div class="section-heading">
+                    <h2>Risk Meter</h2>
+                    <p>Low, moderate, and high zones are represented by the arc.</p>
+                </div>
+                <div class="gauge-wrapper">
+                    <canvas id="gauge" width="280" height="170"></canvas>
+                </div>
+            </div>
+
+            <!-- Clinical Rule (shown only when reason exists) -->
+            <div class="result-card" id="reasonCard" style="display:none;">
+                <div class="section-heading">
+                    <h2>Clinical Rule</h2>
+                    <p>This result was triggered by a lab value threshold.</p>
+                </div>
+                <ul class="reason-list" id="reasonList"></ul>
+            </div>
+
+            <!-- Top Factors (SHAP) -->
+            <div class="result-card shap-card" id="shapCard" style="display:none;">
+                <div class="section-heading">
+                    <h2>Top Factors</h2>
+                    <p>Red increases risk. Green lowers risk.</p>
+                </div>
+                <div class="shap-list" id="shapList"></div>
+            </div>
+        </section>
+
+        <section class="result-card input-card">
+            <div class="section-heading">
+                <h2>Submitted Details</h2>
+                <p>The values used for this assessment.</p>
+            </div>
+            <dl class="input-list" id="inputList"></dl>
+        </section>
+    </main>
+    
+    <script src="gauge.js"></script>
+    <script>
+        // Load result from localStorage
+        const stored = localStorage.getItem('diabeta_last_result');
+        if (!stored) {
+            window.location.href = 'index.html';
+        }
+
+        const result = JSON.parse(stored);
+        window.DIABETA_RESULT = result;
+
+        // Fill basic values
+        const tier = result.tier || '–';
+        const prob = result.probability ?? '–';
+
+        document.getElementById('tierTitle').textContent = `${tier} risk`;
+        document.getElementById('probValue').textContent = prob;
+        document.getElementById('probValue2').textContent = prob;
+
+        // Add tier accent class
+        const hero = document.getElementById('resultHero');
+        hero.classList.add(`tier-accent-${tier}`);
+
+        // Clinical Rule
+        if (Array.isArray(result.reason) && result.reason.length > 0) {
+            const reasonCard = document.getElementById('reasonCard');
+            const reasonList = document.getElementById('reasonList');
+            reasonCard.style.display = 'block';
+            result.reason.forEach(r => {
+                const li = document.createElement('li');
+                li.textContent = r;
+                reasonList.appendChild(li);
+            });
+        }
+
+        // SHAP Top Factors
+        if (Array.isArray(result.shap) && result.shap.length > 0) {
+            const shapCard = document.getElementById('shapCard');
+            const shapList = document.getElementById('shapList');
+            shapCard.style.display = 'block';
+
+            result.shap.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'shap-bar-row';
+                row.innerHTML = `
+                    <div class="shap-bar-label">${item.feature}</div>
+                    <div class="shap-bar-track">
+                        <div class="shap-bar-fill ${item.direction}" style="width: ${item.magnitude_pct}%;"></div>
+                    </div>
+                `;
+                shapList.appendChild(row);
+            });
+        }
+
+        // Submitted Details
+        const inputList = document.getElementById('inputList');
+        if (result.person) {
+            Object.entries(result.person).forEach(([label, value]) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <dt>${label}</dt>
+                    <dd>${value}</dd>
+                `;
+                inputList.appendChild(div);
+            });
+        }
+
+        // Draw gauge
+        if (typeof drawGauge === 'function' && typeof prob === 'number') {
+            drawGauge("gauge", prob / 100);
+        } else if (typeof drawGauge === 'function') {
+            drawGauge("gauge", 0);
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
