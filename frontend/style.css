@@ -6,12 +6,10 @@
     --ink: #080807;
     --muted: #464542;
     --line: #cfcfc9;
-    --paper: #dddd d5;
+    --paper: #DDDDD5;
     --mist: #f6f6f4;
-
     --accent: #080807;
     --accent-soft: rgba(8, 8, 7, 0.06);
-
     --navy: #080807;
 
     --success: #0e4f3e;
@@ -63,7 +61,7 @@ select {
 }
 
 button {
-    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -128,6 +126,7 @@ h3,
     position: relative;
 
     display: grid;
+
     min-height: 100vh;
 
     place-items: center;
@@ -143,6 +142,7 @@ h3,
     content: "";
 
     position: absolute;
+
     inset: 5vh 6vw;
 
     border-radius: 24px;
@@ -159,15 +159,17 @@ h3,
 }
 
 
-/* Intro message panels */
+/* =========================================================
+   INTRO PANELS
+   ========================================================= */
 
 .intro-panel {
     position: absolute;
 
     display: grid;
 
-    width: min(92vw, 700px);
     max-width: 700px;
+    width: min(92vw, 700px);
 
     place-items: center;
 
@@ -186,7 +188,8 @@ h3,
 
     overflow-wrap: anywhere;
 
-    background: rgba(8, 8, 7, 0.76);
+    background:
+        rgba(8, 8, 7, 0.76);
 
     border:
         1px solid rgba(255, 255, 255, 0.18);
@@ -209,9 +212,6 @@ h3,
     animation-delay: 7.4s;
 }
 
-
-/* Logo */
-
 .brand-logo {
     width: clamp(112px, 18vw, 178px);
 
@@ -224,9 +224,6 @@ h3,
     box-shadow:
         0 18px 44px rgba(17, 184, 162, 0.2);
 }
-
-
-/* Intro typography */
 
 .welcome-line,
 .eyebrow {
@@ -302,19 +299,17 @@ h3,
 
 
 /* =========================================================
-   START ASSESSMENT BUTTON
+   START ASSESSMENT
+   CENTERED INSIDE INTRO BOX
    ========================================================= */
 
 .intro-cta {
     position: absolute;
 
+    top: 50%;
     left: 50%;
 
-    bottom: clamp(48px, 10vh, 90px);
-
-    z-index: 5;
-
-    width: auto;
+    z-index: 20;
 
     margin: 0;
 
@@ -322,7 +317,7 @@ h3,
 
     color: #080807;
 
-    background: #dddd d5;
+    background: #DDDDD5;
 
     box-shadow:
         0 16px 38px rgba(0, 0, 0, 0.18);
@@ -330,20 +325,15 @@ h3,
     opacity: 0;
 
     transform:
-        translate(-50%, 24px);
+        translate(-50%, calc(-50% + 24px));
 
     animation:
-        showCta 0.8s ease 11.1s forwards;
-
-    white-space: nowrap;
+        showCenteredCta 0.8s ease 11.1s forwards;
 }
 
 .intro-cta:hover {
     transform:
-        translate(-50%, -2px);
-
-    box-shadow:
-        0 20px 44px rgba(0, 0, 0, 0.24);
+        translate(-50%, calc(-50% - 3px));
 }
 
 
@@ -352,8 +342,6 @@ h3,
    ========================================================= */
 
 .app-hero {
-    display: grid;
-
     grid-template-columns:
         minmax(0, 1.1fr)
         minmax(300px, 0.9fr);
@@ -364,8 +352,7 @@ h3,
         calc(100vh - 42px);
 
     padding:
-        clamp(28px, 5vw, 56px)
-        0;
+        clamp(28px, 5vw, 56px) 0;
 
     place-items: stretch;
 
@@ -565,16 +552,13 @@ h3,
     position: absolute;
 
     right: 24px;
-
     bottom: 24px;
 
     z-index: 1;
 
-    width:
-        min(320px, 88%);
+    width: min(320px, 88%);
 
-    padding:
-        24px 22px;
+    padding: 24px 22px;
 
     border-radius: 24px;
 
@@ -640,14 +624,9 @@ h3,
 
     background: #005eb8;
 
-    color: #ffffff;
-
     box-shadow:
-        0 10px 24px rgba(0, 94, 184, 0.18);
-}
-
-.app-hero .intro-cta:hover {
-    transform: translateY(-2px);
+        0 10px 24px
+        rgba(0, 94, 184, 0.18);
 }
 
 
@@ -690,8 +669,6 @@ h3,
     opacity: 0;
 
     pointer-events: none;
-
-    overflow: hidden;
 }
 
 
@@ -704,7 +681,6 @@ h3,
     position: fixed;
 
     top: 0;
-
     left: 0;
 
     width: 100%;
@@ -726,7 +702,8 @@ h3,
     padding:
         16px clamp(16px, 3vw, 32px);
 
-    min-height: var(--header-h);
+    min-height:
+        var(--header-h);
 
     background:
         rgba(8, 8, 7, 0.94);
@@ -736,10 +713,12 @@ h3,
         blur(22px);
 
     border-bottom:
-        1px solid rgba(255, 255, 255, 0.08);
+        1px solid
+        rgba(255, 255, 255, 0.08);
 
     box-shadow:
-        0 18px 48px rgba(0, 0, 0, 0.20);
+        0 18px 48px
+        rgba(0, 0, 0, 0.20);
 }
 
 .brand-mark,
@@ -770,7 +749,8 @@ h3,
         rgba(255, 255, 255, 0.08);
 
     border:
-        1px solid rgba(255, 255, 255, 0.12);
+        1px solid
+        rgba(255, 255, 255, 0.12);
 }
 
 .brand-mark img {
@@ -785,7 +765,8 @@ h3,
     background: #ffffff;
 
     box-shadow:
-        0 10px 24px rgba(17, 184, 162, 0.16);
+        0 10px 24px
+        rgba(17, 184, 162, 0.16);
 }
 
 .brand-mark span {
@@ -813,8 +794,7 @@ h3,
 
     min-height: 44px;
 
-    padding:
-        10px 16px;
+    padding: 10px 16px;
 
     border-radius: 999px;
 
@@ -841,7 +821,8 @@ h3,
     color: #ffffff;
 
     box-shadow:
-        0 8px 28px rgba(255, 255, 255, 0.14);
+        0 8px 28px
+        rgba(255, 255, 255, 0.14);
 
     transform:
         translateY(-1px);
@@ -849,30 +830,42 @@ h3,
 
 
 /* =========================================================
-   HAMBURGER
+   HAMBURGER MENU
    ========================================================= */
 
+/*
+   Hidden on desktop.
+*/
 .nav-toggle {
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
-    width: 52px;
+    position: relative;
 
+    width: 52px;
     height: 52px;
 
-    border: none;
+    padding: 0;
 
-    border-radius: 18px;
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.18) !important;
+
+    border-radius: 16px;
 
     background:
-        rgba(255, 255, 255, 0.08);
+        rgba(255, 255, 255, 0.10) !important;
 
-    color: #ffffff;
+    color: #ffffff !important;
 
     cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    z-index: 1002;
 
     transition:
         transform 0.18s ease,
@@ -881,24 +874,66 @@ h3,
 
 .nav-toggle:hover {
     background:
-        rgba(255, 255, 255, 0.16);
+        rgba(255, 255, 255, 0.18) !important;
+
+    color: #ffffff !important;
 
     transform:
         translateY(-1px);
 }
 
+
+/*
+   Hamburger lines.
+*/
 .nav-toggle span {
-    display: block;
+    display: block !important;
 
-    width: 23px;
+    width: 24px !important;
 
-    height: 2px;
+    height: 2px !important;
 
-    margin: 4px 0;
+    margin: 4px 0 !important;
+
+    padding: 0;
+
+    border: 0;
 
     border-radius: 999px;
 
-    background: #ffffff;
+    background:
+        #ffffff !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
+}
+
+
+/*
+   If the HTML uses SVG instead of spans.
+*/
+.nav-toggle svg {
+    display: block;
+
+    width: 24px;
+    height: 24px;
+
+    color: #ffffff !important;
+
+    stroke: #ffffff !important;
+
+    fill: none !important;
+}
+
+.nav-toggle svg path,
+.nav-toggle svg line,
+.nav-toggle svg polyline {
+    stroke:
+        #ffffff !important;
+
+    fill:
+        none !important;
 }
 
 
@@ -913,8 +948,7 @@ h3,
 
     right: -100%;
 
-    width:
-        min(360px, 88vw);
+    width: min(360px, 88vw);
 
     height: 100vh;
 
@@ -925,7 +959,8 @@ h3,
         rgba(8, 8, 7, 0.98);
 
     box-shadow:
-        -20px 0 64px rgba(0, 0, 0, 0.32);
+        -20px 0 64px
+        rgba(0, 0, 0, 0.32);
 
     transition:
         right 0.32s ease;
@@ -978,7 +1013,7 @@ body.drawer-open {
 
     background: transparent;
 
-    color: #ffffff;
+    color: #ffffff !important;
 
     font-size: 1.75rem;
 
@@ -1031,7 +1066,8 @@ body.drawer-open {
         9px 13px;
 
     border:
-        1px solid rgba(17, 184, 162, 0.28);
+        1px solid
+        rgba(17, 184, 162, 0.28);
 
     border-radius: 999px;
 
@@ -1062,7 +1098,8 @@ body.drawer-open {
 .result-card,
 .result-hero {
     border:
-        1px solid rgba(8, 8, 7, 0.06);
+        1px solid
+        rgba(8, 8, 7, 0.06);
 
     border-radius: 24px;
 
@@ -1070,7 +1107,8 @@ body.drawer-open {
         rgba(255, 255, 255, 0.94);
 
     box-shadow:
-        0 24px 64px rgba(8, 8, 7, 0.10);
+        0 24px 64px
+        rgba(8, 8, 7, 0.10);
 }
 
 .assessment-summary {
@@ -1197,7 +1235,8 @@ select {
     min-height: 52px;
 
     border:
-        1px solid rgba(16, 33, 54, 0.10);
+        1px solid
+        rgba(16, 33, 54, 0.10);
 
     border-radius: 16px;
 
@@ -1206,7 +1245,8 @@ select {
 
     color: var(--ink);
 
-    background: #fbfcfd;
+    background:
+        #fbfcfd;
 
     outline: none;
 
@@ -1224,7 +1264,8 @@ select:hover {
 
 input:focus,
 select:focus {
-    border-color: var(--teal);
+    border-color:
+        var(--teal);
 
     box-shadow:
         0 0 0 5px
@@ -1366,9 +1407,6 @@ select:focus {
     vertical-align: super;
 }
 
-
-/* Risk tiers */
-
 .result-hero.tier-accent-High .risk-score {
     background:
         linear-gradient(
@@ -1423,7 +1461,8 @@ select:focus {
 
     color: var(--navy);
 
-    background: #ffffff;
+    background:
+        #ffffff;
 
     border:
         1px solid var(--line);
@@ -1464,7 +1503,8 @@ select:focus {
     padding:
         15px 16px;
 
-    background: #f7fbfd;
+    background:
+        #f7fbfd;
 }
 
 .input-list dt {
@@ -1540,7 +1580,8 @@ select:focus {
 
     color: #2d4158;
 
-    background: #fff8e8;
+    background:
+        #fff8e8;
 }
 
 .shap-card {
@@ -1584,7 +1625,8 @@ select:focus {
 
     border-radius: 999px;
 
-    background: #e6edf2;
+    background:
+        #e6edf2;
 }
 
 .shap-bar-fill {
@@ -1596,11 +1638,13 @@ select:focus {
 }
 
 .shap-bar-fill.positive {
-    background: var(--coral);
+    background:
+        var(--coral);
 }
 
 .shap-bar-fill.negative {
-    background: var(--green);
+    background:
+        var(--green);
 }
 
 
@@ -1611,7 +1655,8 @@ select:focus {
 .page-hero,
 .record-card,
 .empty-state {
-    background: #ffffff;
+    background:
+        #ffffff;
 
     border:
         1px solid #dfe8ef;
@@ -1725,9 +1770,11 @@ select:focus {
 .danger-action {
     color: #ffffff;
 
-    background: var(--coral);
+    background:
+        var(--coral);
 
-    border-color: transparent;
+    border-color:
+        transparent;
 }
 
 
@@ -1868,8 +1915,7 @@ select:focus {
 }
 
 .record-modal-panel {
-    width:
-        min(760px, 100%);
+    width: min(760px, 100%);
 
     max-height:
         min(760px, calc(100vh - 40px));
@@ -1956,7 +2002,6 @@ select:focus {
 
 /* =========================================================
    OLD ABOUT LAYOUT
-   Kept for compatibility
    ========================================================= */
 
 .about-layout {
@@ -1973,7 +2018,8 @@ select:focus {
     align-items: start;
 
     border:
-        1px solid rgba(8, 8, 7, 0.06);
+        1px solid
+        rgba(8, 8, 7, 0.06);
 
     border-radius: 24px;
 
@@ -1994,7 +2040,8 @@ select:focus {
         rgba(255, 255, 255, 0.08);
 
     border:
-        1px solid rgba(255, 255, 255, 0.18);
+        1px solid
+        rgba(255, 255, 255, 0.18);
 
     box-shadow:
         0 0 80px
@@ -2173,7 +2220,8 @@ select:focus {
         3px solid
         rgba(255, 255, 255, 0.12);
 
-    border-top-color: #dddd d5;
+    border-top-color:
+        #DDDDD5;
 
     border-radius: 50%;
 
@@ -2183,8 +2231,7 @@ select:focus {
 
 .cold-start-content h2 {
     font-family:
-        "Playfair Display",
-        serif;
+        "Playfair Display", serif;
 
     font-size: 1.55rem;
 
@@ -2224,7 +2271,7 @@ select:focus {
     background:
         linear-gradient(
             90deg,
-            #dddd d5,
+            #DDDDD5,
             #cfcfc9
         );
 
@@ -2236,7 +2283,7 @@ select:focus {
 
 
 /* =========================================================
-   DIABETA — TEAM / ABOUT ME PAGE
+   TEAM / ABOUT ME
    ========================================================= */
 
 .about-me-page .page-shell {
@@ -2245,7 +2292,9 @@ select:focus {
 }
 
 
-/* HERO */
+/* =========================================================
+   TEAM HERO
+   ========================================================= */
 
 .team-hero {
     padding:
@@ -2269,15 +2318,15 @@ select:focus {
         18px 0 28px;
 
     font-family:
-        "Playfair Display",
-        serif;
+        "Playfair Display", serif;
 
     font-size:
         clamp(4rem, 9vw, 8.5rem);
 
     line-height: 0.92;
 
-    letter-spacing: -0.055em;
+    letter-spacing:
+        -0.055em;
 
     font-weight: 700;
 
@@ -2300,7 +2349,9 @@ select:focus {
 }
 
 
-/* TEAM SECTION */
+/* =========================================================
+   TEAM SECTION
+   ========================================================= */
 
 .team-section {
     padding:
@@ -2325,15 +2376,15 @@ select:focus {
         14px 0 0;
 
     font-family:
-        "Playfair Display",
-        serif;
+        "Playfair Display", serif;
 
     font-size:
         clamp(2.7rem, 5vw, 5rem);
 
     line-height: 0.98;
 
-    letter-spacing: -0.045em;
+    letter-spacing:
+        -0.045em;
 
     color: #ffffff;
 }
@@ -2356,7 +2407,9 @@ select:focus {
 }
 
 
-/* TEAM GRID */
+/* =========================================================
+   TEAM GRID
+   ========================================================= */
 
 .team-grid {
     display: grid;
@@ -2368,7 +2421,9 @@ select:focus {
 }
 
 
-/* MEMBER */
+/* =========================================================
+   TEAM MEMBER
+   ========================================================= */
 
 .team-member {
     min-width: 0;
@@ -2383,7 +2438,8 @@ select:focus {
 
     overflow: hidden;
 
-    background: #171716;
+    background:
+        #171716;
 
     border-radius: 4px;
 }
@@ -2435,7 +2491,9 @@ select:focus {
 }
 
 
-/* MEMBER CONTENT */
+/* =========================================================
+   MEMBER CONTENT
+   ========================================================= */
 
 .team-member-info {
     padding:
@@ -2462,15 +2520,15 @@ select:focus {
         0 0 16px;
 
     font-family:
-        "Playfair Display",
-        serif;
+        "Playfair Display", serif;
 
     font-size:
         clamp(1.55rem, 2vw, 2rem);
 
     line-height: 1.05;
 
-    letter-spacing: -0.025em;
+    letter-spacing:
+        -0.025em;
 
     color: #ffffff;
 }
@@ -2489,7 +2547,9 @@ select:focus {
 }
 
 
-/* LINKS */
+/* =========================================================
+   TEAM LINKS
+   ========================================================= */
 
 .team-links {
     display: flex;
@@ -2526,12 +2586,14 @@ select:focus {
 
     height: 1px;
 
-    background: #f19505;
+    background:
+        #f19505;
 
     transform:
         scaleX(0);
 
-    transform-origin: right;
+    transform-origin:
+        right;
 
     transition:
         transform 0.25s ease;
@@ -2541,7 +2603,8 @@ select:focus {
     transform:
         scaleX(1);
 
-    transform-origin: left;
+    transform-origin:
+        left;
 }
 
 
@@ -2570,7 +2633,8 @@ select:focus {
 
     color: #080807;
 
-    background: #dddd d5;
+    background:
+        #DDDDD5;
 
     font-weight: 800;
 
@@ -2590,12 +2654,14 @@ select:focus {
 }
 
 .about-me-page .primary-link:hover {
-    animation-play-state: paused;
+    animation-play-state:
+        paused;
 
     transform:
         translateY(-4px);
 
-    background: #ffffff;
+    background:
+        #ffffff;
 
     box-shadow:
         0 18px 40px
@@ -2616,7 +2682,8 @@ select:focus {
 
     text-align: center;
 
-    background: #111111;
+    background:
+        #111111;
 
     color: #ffffff;
 }
@@ -2628,21 +2695,22 @@ select:focus {
         16px auto 25px;
 
     font-family:
-        "Playfair Display",
-        serif;
+        "Playfair Display", serif;
 
     font-size:
         clamp(2.5rem, 5vw, 5rem);
 
     line-height: 1;
 
-    letter-spacing: -0.045em;
+    letter-spacing:
+        -0.045em;
 }
 
 .team-statement h2 span {
     display: block;
 
-    color: #f19505;
+    color:
+        #f19505;
 }
 
 .team-statement > p:last-child {
@@ -2688,8 +2756,7 @@ select:focus {
 
 .team-footer strong {
     font-family:
-        "Playfair Display",
-        serif;
+        "Playfair Display", serif;
 
     font-size: 1.3rem;
 
@@ -2739,22 +2806,27 @@ select:focus {
     }
 }
 
-@keyframes showCta {
+
+/*
+   Centered Start Assessment animation.
+*/
+@keyframes showCenteredCta {
 
     from {
         opacity: 0;
 
         transform:
-            translate(-50%, 24px);
+            translate(-50%, calc(-50% + 24px));
     }
 
     to {
         opacity: 1;
 
         transform:
-            translate(-50%, 0);
+            translate(-50%, -50%);
     }
 }
+
 
 @keyframes cold-spin {
 
@@ -2763,6 +2835,7 @@ select:focus {
             rotate(360deg);
     }
 }
+
 
 @keyframes assessmentFloat {
 
@@ -2796,11 +2869,13 @@ select:focus {
     }
 
     .team-section-heading {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 25px;
 
-        margin-bottom: 45px;
+        margin-bottom:
+            45px;
     }
 
     .team-grid {
@@ -2831,74 +2906,107 @@ select:focus {
             min(100% - 24px, 640px);
     }
 
+
+    /* Desktop nav hidden */
     .top-nav {
         display: none;
     }
 
-    .nav-toggle {
-        display: inline-flex;
 
-        margin-left: auto;
+    /* Hamburger visible */
+    .nav-toggle {
+        display: inline-flex !important;
+
+        margin-left: auto !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
     }
+
 
     .assessment-layout,
     .result-grid,
     .about-layout,
     .app-hero,
     .info-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
+
 
     .assessment-header,
     .result-header {
-        align-items: center;
+        display: flex !important;
 
-        flex-direction: row;
+        align-items: center !important;
+
+        flex-direction:
+            row !important;
+
+        justify-content:
+            space-between !important;
     }
+
 
     .result-hero {
-        align-items: flex-start;
+        align-items:
+            flex-start;
 
-        flex-direction: column;
+        flex-direction:
+            column;
     }
+
 
     .side-drawer {
         width:
             min(320px, 92vw);
     }
 
+
     .form-grid,
     .shap-bar-row,
     .input-list {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
+
 
     .risk-score {
         width: 100%;
     }
 
-    .record-card {
-        align-items: flex-start;
 
-        flex-direction: column;
+    .record-card {
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
     }
+
 
     .record-card .secondary-action {
         width: 100%;
     }
 
+
     .record-actions {
         width: 100%;
     }
+
 
     .about-photo-panel {
         position: static;
     }
 
+
     .hero-copy,
     .hero-image-panel {
-        min-height: auto;
+        min-height:
+            auto;
     }
+
 
     .hero-image-panel {
         height: 300px;
@@ -2908,33 +3016,17 @@ select:focus {
 
 
     /* About Me */
-
     .about-me-page .team-hero {
-        padding-top: 40px;
+        padding-top:
+            40px;
 
-        padding-bottom: 55px;
+        padding-bottom:
+            55px;
     }
 
     .about-me-page .team-section {
-        padding-top: 60px;
-    }
-
-
-    /* Start Assessment */
-
-    .intro-cta {
-        bottom:
-            clamp(30px, 7vh, 60px);
-
-        padding:
-            15px 22px;
-
-        max-width:
-            calc(100vw - 40px);
-
-        white-space: normal;
-
-        text-align: center;
+        padding-top:
+            60px;
     }
 }
 
@@ -2966,19 +3058,23 @@ select:focus {
     }
 
     .team-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 55px;
     }
 
     .team-member:last-child {
-        grid-column: auto;
+        grid-column:
+            auto;
 
-        max-width: none;
+        max-width:
+            none;
     }
 
     .team-image-wrap {
-        aspect-ratio: 0.9;
+        aspect-ratio:
+            0.9;
     }
 
     .team-statement {
@@ -2990,17 +3086,21 @@ select:focus {
     }
 
     .team-footer {
-        flex-direction: column;
+        flex-direction:
+            column;
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
 
         gap: 15px;
     }
 
     .team-footer div {
-        align-items: flex-start;
+        align-items:
+            flex-start;
 
-        flex-direction: column;
+        flex-direction:
+            column;
 
         gap: 5px;
     }
@@ -3011,36 +3111,53 @@ select:focus {
     }
 
     .about-me-page .team-hero {
-        padding-top: 28px;
+        padding-top:
+            28px;
 
-        padding-bottom: 45px;
+        padding-bottom:
+            45px;
     }
 
     .about-me-page .team-section {
-        padding-top: 50px;
+        padding-top:
+            50px;
     }
 
     .about-me-page .team-section-heading {
-        margin-bottom: 30px;
+        margin-bottom:
+            30px;
     }
 
     .about-me-page .primary-link {
-        margin-top: 24px;
+        margin-top:
+            24px;
 
         padding:
             13px 23px;
     }
 
-    .intro-cta {
+
+    /*
+       Mobile Start Assessment.
+       Still centered in the black intro box.
+    */
+    .intro-stage .intro-cta {
         width:
-            min(88vw, 360px);
+            auto;
+
+        min-width:
+            180px;
+
+        max-width:
+            calc(100% - 40px);
 
         padding:
-            15px 18px;
+            15px 24px;
 
-        bottom:
-            32px;
+        white-space:
+            nowrap;
     }
+
 
     .assessment-summary,
     .assessment-form,
@@ -3051,8 +3168,10 @@ select:focus {
     .hero-copy,
     .info-card,
     .record-modal-panel {
-        padding: 18px;
+        padding:
+            18px;
     }
+
 
     .assessment-summary h2,
     .result-hero h1,
@@ -3060,127 +3179,46 @@ select:focus {
     .about-content h1,
     .hero-copy h1,
     .info-hero h1 {
-        overflow-wrap: anywhere;
+        overflow-wrap:
+            anywhere;
     }
 
+
     .brand-mark span {
-        font-size: 1rem;
+        font-size:
+            1rem;
     }
+
 
     .top-nav a,
     .secondary-action,
     .assessment-pill {
-        font-size: 0.84rem;
+        font-size:
+            0.84rem;
     }
+
 
     canvas {
-        max-width: 100%;
+        max-width:
+            100%;
 
-        height: auto;
-    }
-
-
-    /* Cold start */
-
-    .cold-start-content {
-        width:
-            min(90vw, 380px);
-
-        padding:
-            1.5rem;
-    }
-
-    .cold-start-logo {
-        width: 76px;
-
-        height: 76px;
+        height:
+            auto;
     }
 }
 
 
 /* =========================================================
-   VERY SMALL MOBILE
+   DESKTOP HAMBURGER SAFETY
    ========================================================= */
 
-@media (max-width: 420px) {
-
-    :root {
-        --header-h: 82px;
-    }
-
-    .brand-mark {
-        gap: 8px;
-
-        padding:
-            8px 12px;
-    }
-
-    .brand-mark img {
-        width: 38px;
-
-        height: 38px;
-    }
-
-    .brand-mark span {
-        font-size:
-            0.9rem;
-    }
+@media (min-width: 821px) {
 
     .nav-toggle {
-        width: 46px;
-
-        height: 46px;
-
-        border-radius: 14px;
+        display:
+            none !important;
     }
 
-    .intro-panel {
-        width:
-            calc(100vw - 28px);
-
-        padding:
-            22px 18px;
-    }
-
-    .intro-panel h1 {
-        font-size:
-            clamp(1.8rem, 10vw, 2.7rem);
-    }
-
-    .intro-panel-headline p {
-        font-size:
-            clamp(1.15rem, 6vw, 1.7rem);
-    }
-
-    .intro-cta {
-        width:
-            calc(100vw - 48px);
-
-        bottom: 24px;
-
-        padding:
-            14px 16px;
-    }
-
-    .assessment-summary,
-    .assessment-form,
-    .result-card,
-    .result-hero,
-    .page-hero {
-        border-radius: 18px;
-    }
-
-    .summary-metrics {
-        grid-template-columns: 1fr;
-    }
-
-    .result-hero .risk-score {
-        width: 140px;
-
-        min-width: 140px;
-
-        height: 140px;
-    }
 }
 
 
@@ -3193,7 +3231,8 @@ select:focus {
     *,
     *::before,
     *::after {
-        scroll-behavior: auto !important;
+        scroll-behavior:
+            auto !important;
 
         animation-duration:
             0.01ms !important;
@@ -3205,13 +3244,26 @@ select:focus {
             0.01ms !important;
     }
 
+
     .intro-panel-brand,
     .intro-cta,
     .about-me-page .primary-link {
-        opacity: 1;
+        opacity:
+            1;
 
-        transform: none;
+        transform:
+            none;
 
-        animation: none;
+        animation:
+            none;
+    }
+
+
+    .intro-stage .intro-cta {
+        opacity:
+            1;
+
+        transform:
+            translate(-50%, -50%);
     }
 }
