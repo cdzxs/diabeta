@@ -3,76 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About DiaBeta</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>About Me | DiaBeta</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="about-me-page">
-    <main class="page-shell">
-        <header class="result-header">
-            <a class="brand-mark" href="/?assessment=1" aria-label="DiaBeta assessment">
-                <img src="diabeta-logo.png" alt="DiaBeta logo">
 
+<body class="about-me-page">
+
+    <main class="page-shell">
+
+        <!-- HEADER -->
+        <header class="result-header">
+
+            <a
+                class="brand-mark"
+                href="index.html?assessment=1"
+                aria-label="DiaBeta assessment"
+            >
+                <img src="diabeta-logo.png" alt="DiaBeta logo">
                 <span>DiaBeta</span>
             </a>
-            <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle>
+
+            <button
+                class="nav-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                data-drawer-toggle
+            >
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
+
             <nav class="top-nav" aria-label="Main navigation">
                 <a href="index.html?assessment=1">Assessment</a>
                 <a href="records.html">Records</a>
                 <a href="about.html">About DiaBeta</a>
             </nav>
+
         </header>
+
+
+        <!-- MOBILE DRAWER -->
         <div class="drawer-overlay" aria-hidden="true"></div>
+
         <aside class="side-drawer" aria-hidden="true">
-            <button class="drawer-close" type="button" aria-label="Close navigation menu" data-drawer-close>&times;</button>
+
+            <button
+                class="drawer-close"
+                type="button"
+                aria-label="Close navigation menu"
+                data-drawer-close
+            >
+                &times;
+            </button>
+
             <nav class="drawer-nav" aria-label="Mobile navigation">
                 <a href="index.html?assessment=1">Assessment</a>
                 <a href="records.html">Records</a>
                 <a href="about.html">About DiaBeta</a>
             </nav>
+
         </aside>
 
+
+        <!-- YOUR PROFILE -->
         <section class="about-layout">
+
             <div class="about-photo-panel">
-                <img src="profile-photo.png" alt="Ezeji Godswill">
+                <img
+                    src="profile-photo.png"
+                    alt="Ezeji Godswill"
+                >
             </div>
 
             <div class="about-content">
-                <p class="eyebrow">Creator</p>
-                <h1>Ezeji Godswill</h1>
-                <p>Hello, my name is Ezeji Godswill. I am a Biomedical Engineering student and developer who loves artificial intelligence in healthcare. I created this clinical risk assessment tool to demonstrate how machine learning can support earlier diabetes risk evaluation.</p>
 
-                <div class="about-block">
-                    <h2>Why I built this tool</h2>
-                    <p>I wanted to show how machine learning can support early risk awareness in healthcare, while making the clinician experience simple and clear for rapid assessment.</p>
-                </div>
+                <p class="eyebrow">Creator & Developer</p>
+
+                <h1>Ezeji Godswill</h1>
+
+                <p>
+                    I am a Biomedical Engineering student and developer with a
+                    strong interest in Artificial Intelligence, Machine
+                    Learning, and their applications in healthcare.
+                </p>
+
+                <p>
+                    I created DiaBeta as a clinical risk assessment project
+                    that demonstrates how machine learning can be applied to
+                    healthcare data to support earlier diabetes risk awareness.
+                </p>
 
                 <div class="contact-row">
-                    <a href="https://github.com/cdzxs" target="_blank" rel="noreferrer">GitHub</a>
-                    <a href="https://www.linkedin.com/in/ezeji-godswill-9aa573255/" target="_blank" rel="noreferrer">LinkedIn</a>
-                    <a href="mailto:ezejigodswill041@gmail.com">Email</a>
+
+                    <a
+                        href="https://github.com/cdzxs"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        GitHub
+                    </a>
+
+                    <a
+                        href="https://www.linkedin.com/in/ezeji-godswill-9aa573255/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        LinkedIn
+                    </a>
+
+                    <a href="mailto:ezejigodswill041@gmail.com">
+                        Email
+                    </a>
+
                 </div>
+
             </div>
+
         </section>
+
+
+        <!-- PROJECT TEAM -->
+        <section class="team-section">
+
+            <div class="team-heading">
+
+                <p class="eyebrow">Project Team</p>
+
+                <h2>The People Behind DiaBeta</h2>
+
+                <p>
+                    DiaBeta was developed through collaboration, research,
+                    design, and academic supervision.
+                </p>
+
+            </div>
+
+
+            <div class="team-grid">
+
+
+                <!-- MUNACHIMSO -->
+                <article class="team-card">
+
+                    <div class="team-photo">
+                        <img
+                            src="muna.png"
+                            alt="Munachimso Dike"
+                        >
+                    </div>
+
+                    <div class="team-info">
+
+                        <p class="eyebrow">Researcher</p>
+
+                        <h3>Munachimso Dike</h3>
+
+                        <p>
+                            Final-year student in the Department of Biomedical
+                            Engineering, Federal University of Technology,
+                            Owerri (FUTO).
+                        </p>
+
+                        <p>
+                            Assisted in the design and development of DiaBeta,
+                            a machine-learning-based tool for diabetes risk
+                            prediction.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- SUPERVISOR -->
+                <article class="team-card">
+
+                    <div class="team-photo">
+                        <img
+                            src="kenneth.png"
+                            alt="ENGR. DR. K. I. NKUMA-UDAH"
+                        >
+                    </div>
+
+                    <div class="team-info">
+
+                        <p class="eyebrow">Project Supervisor</p>
+
+                        <h3>
+                            ENGR. DR. K. I. NKUMA-UDAH
+                        </h3>
+
+                        <p>
+                            Project supervisor providing academic guidance
+                            and oversight throughout the research, design,
+                            and development of DiaBeta.
+                        </p>
+
+                        <a
+                            class="team-link"
+                            href="https://www.linkedin.com/in/drkenneth/"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            LinkedIn
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
     </main>
+
+
+    <!-- HEADER HEIGHT -->
     <script>
+
         (function () {
+
             function setHeaderHeight() {
-                const header = document.querySelector('.assessment-header, .result-header');
+
+                const header =
+                    document.querySelector(
+                        '.assessment-header, .result-header'
+                    );
+
                 if (!header) return;
-                const height = header.offsetHeight;
-                document.documentElement.style.setProperty('--header-h', (height + 16) + 'px');
-                // +16px gives a small visible gap so content doesn't touch the header edge
+
+                const height =
+                    header.offsetHeight;
+
+                document.documentElement.style.setProperty(
+                    '--header-h',
+                    (height + 16) + 'px'
+                );
+
             }
 
-            window.addEventListener('load', setHeaderHeight);
-            window.addEventListener('resize', setHeaderHeight);
+            window.addEventListener(
+                'load',
+                setHeaderHeight
+            );
+
+            window.addEventListener(
+                'resize',
+                setHeaderHeight
+            );
+
         })();
-</script>
+
+    </script>
+
+
+    <!-- SHARED DIA BETA JAVASCRIPT -->
     <script src="app.js"></script>
+
 </body>
 </html>
