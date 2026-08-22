@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>DiaBeta</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="style.css">
 
     <style>
+        /* ============================================================
+           BMI CALCULATOR
+        ============================================================ */
+
         .bmi-calc-wrapper {
             margin-bottom: 4px;
         }
@@ -52,33 +62,149 @@
             color: #2a6f2a;
             font-size: 16px;
         }
+
+
+        /* ============================================================
+           START ASSESSMENT TRANSITION
+        ============================================================ */
+
+        .intro-stage {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            transition:
+                opacity 0.55s ease,
+                transform 0.55s ease,
+                visibility 0.55s ease;
+        }
+
+        .assessment-section {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(30px);
+            transition:
+                opacity 0.55s ease,
+                transform 0.55s ease,
+                visibility 0.55s ease;
+        }
+
+        /*
+         * Assessment is shown after Start Assessment is clicked.
+         */
+        body.assessment-ready .intro-stage {
+            opacity: 0;
+            transform: translateY(-30px);
+            visibility: hidden;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+
+        body.assessment-ready .assessment-section {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /*
+         * Prevent the page from jumping when the intro disappears.
+         */
+        body.home-page:not(.assessment-ready) {
+            overflow-x: hidden;
+        }
+
+        body.home-page.assessment-ready {
+            overflow-x: hidden;
+        }
+
+        /*
+         * Keep the assessment positioned at the top when opened.
+         */
+        body.assessment-ready .site-shell {
+            min-height: 100vh;
+        }
+
+        /*
+         * Slightly delay the assessment content for a smoother reveal.
+         */
+        body.assessment-ready .assessment-header,
+        body.assessment-ready .drawer-overlay,
+        body.assessment-ready .side-drawer {
+            animation: assessmentFadeIn 0.45s ease forwards;
+        }
+
+        @keyframes assessmentFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /*
+         * Make the Start Assessment button feel clickable.
+         */
+        .intro-cta {
+            cursor: pointer;
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .intro-cta:hover {
+            transform: translateY(-2px);
+        }
+
+        .intro-cta:active {
+            transform: translateY(0);
+        }
+
+        .intro-cta:focus-visible {
+            outline: 3px solid rgba(241, 149, 5, 0.35);
+            outline-offset: 4px;
+        }
     </style>
 </head>
 
+
 <body class="home-page">
 
-    <!-- Cold-start loading overlay -->
-    <div id="coldStartOverlay"
-         class="cold-start-overlay"
-         aria-live="polite"
-         aria-busy="true">
+    <!-- ============================================================
+         COLD START LOADING OVERLAY
+    ============================================================ -->
+
+    <div
+        id="coldStartOverlay"
+        class="cold-start-overlay"
+        aria-live="polite"
+        aria-busy="true"
+    >
 
         <div class="cold-start-content">
-            <img class="cold-start-logo"
-                 src="diabeta-logo.png"
-                 alt="DiaBeta">
+
+            <img
+                class="cold-start-logo"
+                src="diabeta-logo.png"
+                alt="DiaBeta"
+            >
 
             <div class="cold-start-spinner"></div>
 
-            <h2 id="coldStartTitle">Preparing assessment</h2>
+            <h2 id="coldStartTitle">
+                Preparing assessment
+            </h2>
 
             <p id="coldStartMessage">
                 Connecting to DiaBeta…
             </p>
 
             <div class="cold-start-progress">
-                <div class="cold-start-progress-fill"
-                     id="coldStartProgress"></div>
+                <div
+                    class="cold-start-progress-fill"
+                    id="coldStartProgress"
+                ></div>
             </div>
 
             <button
@@ -92,114 +218,181 @@
                     border-radius:8px;
                     cursor:pointer;
                     font-weight:600;
-                ">
+                "
+            >
                 Continue to DiaBeta
             </button>
+
         </div>
+
     </div>
 
 
+    <!-- ============================================================
+         MAIN APPLICATION
+    ============================================================ -->
+
     <main class="site-shell">
 
-        <section class="intro-stage animated-welcome"
-                 id="introStage"
-                 aria-label="Clinical Diabetes Risk Assessment">
+
+        <!-- ========================================================
+             INTRO / WELCOME SCREEN
+        ======================================================== -->
+
+        <section
+            class="intro-stage animated-welcome"
+            id="introStage"
+            aria-label="Clinical Diabetes Risk Assessment"
+        >
 
             <div class="intro-panel intro-panel-brand">
-                <img class="brand-logo"
-                     src="diabeta-logo.png"
-                     alt="DiaBeta logo">
 
-                <p class="welcome-line">DiaBeta</p>
+                <img
+                    class="brand-logo"
+                    src="diabeta-logo.png"
+                    alt="DiaBeta logo"
+                >
 
-                <h1>DiaBeta</h1>
+                <p class="welcome-line">
+                    DiaBeta
+                </p>
+
+                <h1>
+                    DiaBeta
+                </h1>
+
             </div>
 
+
             <div class="intro-panel intro-panel-headline">
+
                 <p>
                     Designed to assist healthcare professionals in evaluating
                     a patient's risk of diabetes using clinical parameters
                     and machine learning.
                 </p>
+
             </div>
 
+
             <div class="intro-panel intro-panel-copy">
+
                 <p>
                     This tool supports clinician decision-making with clear
                     input structure and evidence-based lab thresholds.
                 </p>
+
             </div>
 
-            <button class="intro-cta"
-                    type="button"
-                    id="startAssessment">
+
+            <button
+                class="intro-cta"
+                type="button"
+                id="startAssessment"
+            >
                 Start assessment
             </button>
 
         </section>
 
 
+        <!-- ========================================================
+             ASSESSMENT HEADER
+        ======================================================== -->
+
         <div class="assessment-header">
 
-            <a class="brand-mark"
-               href="/"
-               aria-label="DiaBeta home">
+            <a
+                class="brand-mark"
+                href="/"
+                aria-label="DiaBeta home"
+            >
 
-                <img src="diabeta-logo.png"
-                     alt="DiaBeta logo">
+                <img
+                    src="diabeta-logo.png"
+                    alt="DiaBeta logo"
+                >
 
-                <span>DiaBeta</span>
+                <span>
+                    DiaBeta
+                </span>
 
             </a>
 
-            <button class="nav-toggle"
-                    type="button"
-                    aria-label="Open navigation menu"
-                    aria-expanded="false"
-                    data-drawer-toggle>
 
-                <svg width="24"
-                     height="24"
-                     viewBox="0 0 24 24"
-                     aria-hidden="true"
-                     focusable="false">
+            <!-- MOBILE MENU -->
 
-                    <rect x="3"
-                          y="3"
-                          width="7"
-                          height="7"
-                          rx="2" />
+            <button
+                class="nav-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                data-drawer-toggle
+            >
 
-                    <rect x="14"
-                          y="3"
-                          width="7"
-                          height="7"
-                          rx="2" />
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                >
 
-                    <rect x="3"
-                          y="14"
-                          width="7"
-                          height="7"
-                          rx="2" />
+                    <rect
+                        x="3"
+                        y="3"
+                        width="7"
+                        height="7"
+                        rx="2"
+                    />
 
-                    <rect x="14"
-                          y="14"
-                          width="7"
-                          height="7"
-                          rx="2" />
+                    <rect
+                        x="14"
+                        y="3"
+                        width="7"
+                        height="7"
+                        rx="2"
+                    />
+
+                    <rect
+                        x="3"
+                        y="14"
+                        width="7"
+                        height="7"
+                        rx="2"
+                    />
+
+                    <rect
+                        x="14"
+                        y="14"
+                        width="7"
+                        height="7"
+                        rx="2"
+                    />
 
                 </svg>
+
             </button>
 
 
-            <nav class="top-nav"
-                 aria-label="Main navigation">
+            <!-- DESKTOP NAVIGATION -->
 
-                <a href="records.html">Records</a>
+            <nav
+                class="top-nav"
+                aria-label="Main navigation"
+            >
 
-                <a href="about.html">About</a>
+                <a href="records.html">
+                    Records
+                </a>
 
-                <a href="about_me.html">About Me</a>
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="about_me.html">
+                    About Me
+                </a>
 
                 <span class="assessment-pill">
                     Private assessment
@@ -210,29 +403,47 @@
         </div>
 
 
-        <div class="drawer-overlay"
-             aria-hidden="true">
-        </div>
+        <!-- ========================================================
+             MOBILE DRAWER
+        ======================================================== -->
+
+        <div
+            class="drawer-overlay"
+            aria-hidden="true"
+        ></div>
 
 
-        <aside class="side-drawer"
-               aria-hidden="true">
+        <aside
+            class="side-drawer"
+            aria-hidden="true"
+        >
 
-            <button class="drawer-close"
-                    type="button"
-                    aria-label="Close navigation menu"
-                    data-drawer-close>
+            <button
+                class="drawer-close"
+                type="button"
+                aria-label="Close navigation menu"
+                data-drawer-close
+            >
                 &times;
             </button>
 
-            <nav class="drawer-nav"
-                 aria-label="Mobile navigation">
 
-                <a href="records.html">Records</a>
+            <nav
+                class="drawer-nav"
+                aria-label="Mobile navigation"
+            >
 
-                <a href="about.html">About</a>
+                <a href="records.html">
+                    Records
+                </a>
 
-                <a href="about_me.html">About Me</a>
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="about_me.html">
+                    About Me
+                </a>
 
                 <span class="assessment-pill">
                     Private assessment
@@ -243,26 +454,47 @@
         </aside>
 
 
-        <section class="assessment-section"
-                 id="assessmentSection"
-                 aria-label="Diabetes risk assessment">
+        <!-- ========================================================
+             ASSESSMENT SECTION
+        ======================================================== -->
 
-            <section class="app-hero home-bar"
-                     aria-label="Clinical Diabetes Risk Assessment overview">
+        <section
+            class="assessment-section"
+            id="assessmentSection"
+            aria-label="Diabetes risk assessment"
+        >
+
+
+            <!-- ====================================================
+                 HERO
+            ==================================================== -->
+
+            <section
+                class="app-hero home-bar"
+                aria-label="Clinical Diabetes Risk Assessment overview"
+            >
 
                 <div class="hero-copy">
 
                     <div class="hero-brand-lockup">
 
-                        <img class="brand-logo"
-                             src="diabeta-logo.png"
-                             alt="DiaBeta logo">
+                        <img
+                            class="brand-logo"
+                            src="diabeta-logo.png"
+                            alt="DiaBeta logo"
+                        >
 
-                        <span>DiaBeta</span>
+                        <span>
+                            DiaBeta
+                        </span>
 
                     </div>
 
-                    <h1>DiaBeta</h1>
+
+                    <h1>
+                        DiaBeta
+                    </h1>
+
 
                     <p>
                         Clinical Diabetes Risk Assessment powered by
@@ -322,11 +554,15 @@
                 </div>
 
 
-                <div class="hero-image-panel"
-                     aria-hidden="true">
+                <div
+                    class="hero-image-panel"
+                    aria-hidden="true"
+                >
 
-                    <img src="health-background.jpg"
-                         alt="">
+                    <img
+                        src="health-background.jpg"
+                        alt=""
+                    >
 
                     <div class="hero-overlay-card">
 
@@ -350,10 +586,19 @@
             </section>
 
 
+            <!-- ====================================================
+                 ASSESSMENT FORM AREA
+            ==================================================== -->
+
             <div class="assessment-layout">
 
-                <aside class="assessment-summary"
-                       aria-label="Assessment summary">
+
+                <!-- SUMMARY -->
+
+                <aside
+                    class="assessment-summary"
+                    aria-label="Assessment summary"
+                >
 
                     <p class="eyebrow">
                         Clinical assessment
@@ -374,7 +619,9 @@
 
                         <div>
 
-                            <strong>7</strong>
+                            <strong>
+                                7
+                            </strong>
 
                             <span>
                                 inputs
@@ -385,7 +632,9 @@
 
                         <div>
 
-                            <strong>1</strong>
+                            <strong>
+                                1
+                            </strong>
 
                             <span>
                                 result
@@ -398,10 +647,17 @@
                 </aside>
 
 
-                <form class="assessment-form"
-                      id="assessmentForm">
+                <!-- FORM -->
+
+                <form
+                    class="assessment-form"
+                    id="assessmentForm"
+                >
 
                     <div class="form-grid">
+
+
+                        <!-- PATIENT NAME -->
 
                         <label class="field">
 
@@ -413,10 +669,13 @@
                                 type="text"
                                 name="patient_name"
                                 placeholder="Full name"
-                                required>
+                                required
+                            >
 
                         </label>
 
+
+                        <!-- PATIENT ADDRESS -->
 
                         <label class="field">
 
@@ -428,10 +687,13 @@
                                 type="text"
                                 name="patient_address"
                                 placeholder="Home address"
-                                required>
+                                required
+                            >
 
                         </label>
 
+
+                        <!-- AGE -->
 
                         <label class="field">
 
@@ -445,10 +707,13 @@
                                 min="1"
                                 max="120"
                                 placeholder="45"
-                                required>
+                                required
+                            >
 
                         </label>
 
+
+                        <!-- SEX -->
 
                         <label class="field">
 
@@ -458,12 +723,14 @@
 
                             <select
                                 name="sex"
-                                required>
+                                required
+                            >
 
                                 <option
                                     value=""
                                     disabled
-                                    selected>
+                                    selected
+                                >
                                     Select sex
                                 </option>
 
@@ -480,46 +747,52 @@
                         </label>
 
 
+                        <!-- BMI CALCULATOR -->
+
                         <div class="field field-wide bmi-calc-wrapper">
 
                             <button
                                 type="button"
                                 id="bmiToggleBtn"
-                                class="bmi-toggle-btn">
-
+                                class="bmi-toggle-btn"
+                            >
                                 BMI Calculator
                                 (optional helper)
-
                             </button>
 
 
                             <div
                                 id="bmiPanel"
                                 class="bmi-panel"
-                                style="display:none;">
+                                style="display:none;"
+                            >
 
                                 <div class="bmi-inputs">
 
                                     <label>
+
                                         Weight (kg):
 
                                         <input
                                             type="number"
                                             id="bmiWeightKg"
                                             step="0.1"
-                                            min="0">
+                                            min="0"
+                                        >
 
                                     </label>
 
 
                                     <label>
+
                                         Height (cm):
 
                                         <input
                                             type="number"
                                             id="bmiHeightCm"
                                             step="0.1"
-                                            min="0">
+                                            min="0"
+                                        >
 
                                     </label>
 
@@ -528,20 +801,22 @@
 
                                 <button
                                     type="button"
-                                    id="bmiComputeBtn">
-
+                                    id="bmiComputeBtn"
+                                >
                                     Calculate
-
                                 </button>
 
 
-                                <div id="bmiResultPreview">
-                                </div>
+                                <div
+                                    id="bmiResultPreview"
+                                ></div>
 
                             </div>
 
                         </div>
 
+
+                        <!-- BMI -->
 
                         <label class="field">
 
@@ -558,10 +833,13 @@
                                 name="bmi"
                                 min="1"
                                 placeholder="27.5"
-                                required>
+                                required
+                            >
 
                         </label>
 
+
+                        <!-- WAIST -->
 
                         <label class="field">
 
@@ -575,7 +853,8 @@
                                 name="waist_circumference_cm"
                                 min="1"
                                 placeholder="92.0"
-                                required>
+                                required
+                            >
 
                             <small>
                                 Measured in centimeters
@@ -583,6 +862,8 @@
 
                         </label>
 
+
+                        <!-- HBA1C -->
 
                         <label class="field">
 
@@ -599,7 +880,8 @@
                                 name="hba1c"
                                 min="1"
                                 placeholder="5.6"
-                                required>
+                                required
+                            >
 
                             <small>
                                 Percent
@@ -607,6 +889,8 @@
 
                         </label>
 
+
+                        <!-- FASTING GLUCOSE -->
 
                         <label class="field">
 
@@ -623,7 +907,8 @@
                                 name="fasting_glucose_mgdl"
                                 min="1"
                                 placeholder="96"
-                                required>
+                                required
+                            >
 
                             <small>
                                 mg/dL
@@ -631,6 +916,8 @@
 
                         </label>
 
+
+                        <!-- RACE -->
 
                         <label class="field field-wide">
 
@@ -641,12 +928,14 @@
                             <select
                                 name="race_ethnicity"
                                 id="raceSelect"
-                                required>
+                                required
+                            >
 
                                 <option
                                     value=""
                                     disabled
-                                    selected>
+                                    selected
+                                >
                                     Select race or ethnicity
                                 </option>
 
@@ -657,13 +946,14 @@
                     </div>
 
 
+                    <!-- SUBMIT -->
+
                     <button
                         class="primary-action"
                         type="submit"
-                        id="submitBtn">
-
+                        id="submitBtn"
+                    >
                         Estimate risk
-
                     </button>
 
 
@@ -673,8 +963,8 @@
                             color:#d64554;
                             margin-top:12px;
                             display:none;
-                        ">
-                    </p>
+                        "
+                    ></p>
 
                 </form>
 
@@ -685,19 +975,23 @@
     </main>
 
 
+    <!-- ============================================================
+         JAVASCRIPT
+    ============================================================ -->
+
     <script>
 
-        // ============================================================
-        // CONFIGURATION
-        // ============================================================
+        /* ============================================================
+           BACKEND CONFIGURATION
+        ============================================================ */
 
         const BACKEND_URL =
             "https://diabeta-2.onrender.com";
 
 
-        // ============================================================
-        // COLD START / BACKEND CONNECTION
-        // ============================================================
+        /* ============================================================
+           COLD START / BACKEND CONNECTION
+        ============================================================ */
 
         (function () {
 
@@ -728,10 +1022,6 @@
 
             let startTime = Date.now();
 
-
-            // --------------------------------------------------------
-            // Check whether backend is alive
-            // --------------------------------------------------------
 
             async function checkHealth() {
 
@@ -771,7 +1061,9 @@
 
                 } catch (error) {
 
-                    // Backend may simply be waking from sleep.
+                    console.log(
+                        "Waiting for backend..."
+                    );
 
                 }
 
@@ -779,10 +1071,6 @@
 
             }
 
-
-            // --------------------------------------------------------
-            // Remove overlay
-            // --------------------------------------------------------
 
             function hideOverlay() {
 
@@ -811,29 +1099,32 @@
             }
 
 
-            // --------------------------------------------------------
-            // Backend is ready
-            // --------------------------------------------------------
-
             function backendConnected() {
 
                 backendReady = true;
 
 
                 if (title) {
+
                     title.textContent =
                         "DiaBeta is ready";
+
                 }
 
 
                 if (message) {
+
                     message.textContent =
                         "Ready to perform your assessment.";
+
                 }
 
 
                 if (progress) {
-                    progress.style.width = "100%";
+
+                    progress.style.width =
+                        "100%";
+
                 }
 
 
@@ -849,21 +1140,21 @@
             }
 
 
-            // --------------------------------------------------------
-            // Backend is slow
-            // --------------------------------------------------------
-
             function backendSlow() {
 
                 if (title) {
+
                     title.textContent =
                         "Server is waking up";
+
                 }
 
 
                 if (message) {
+
                     message.textContent =
                         "The DiaBeta server is taking longer than usual to start. You can continue to the assessment.";
+
                 }
 
 
@@ -871,6 +1162,7 @@
 
                     continueBtn.style.display =
                         "inline-block";
+
 
                     continueBtn.onclick = () => {
 
@@ -884,10 +1176,6 @@
 
             }
 
-
-            // --------------------------------------------------------
-            // Progress indicator
-            // --------------------------------------------------------
 
             const progressTimer =
                 setInterval(() => {
@@ -911,17 +1199,11 @@
                     progress.style.width =
                         percentage + "%";
 
-
                 }, 300);
 
 
-            // --------------------------------------------------------
-            // Main backend waiter
-            // --------------------------------------------------------
-
             async function waitForBackend() {
 
-                // Check immediately
                 if (await checkHealth()) {
 
                     clearInterval(progressTimer);
@@ -968,12 +1250,7 @@
                 }
 
 
-                // ----------------------------------------------------
-                // Backend did not respond within timeout
-                // ----------------------------------------------------
-
                 clearInterval(progressTimer);
-
 
                 backendSlow();
 
@@ -985,9 +1262,9 @@
         })();
 
 
-        // ============================================================
-        // LOAD RACE / ETHNICITY MAP
-        // ============================================================
+        /* ============================================================
+           LOAD RACE / ETHNICITY MAP
+        ============================================================ */
 
         async function loadRaceMap() {
 
@@ -1026,12 +1303,12 @@
                 }
 
 
-                // Prevent duplicate options
                 select.innerHTML = `
                     <option
                         value=""
                         disabled
-                        selected>
+                        selected
+                    >
                         Select race or ethnicity
                     </option>
                 `;
@@ -1073,9 +1350,13 @@
         }
 
 
-        // ============================================================
-        // INTRO / ASSESSMENT TOGGLE
-        // ============================================================
+        /* ============================================================
+           START ASSESSMENT
+           
+           IMPORTANT:
+           We no longer use scrollIntoView().
+           The intro simply transitions into the assessment.
+        ============================================================ */
 
         const startButton =
             document.getElementById(
@@ -1101,9 +1382,15 @@
             ).get("assessment") === "1";
 
 
-        function openAssessment(
-            shouldScroll = true
-        ) {
+        function openAssessment() {
+
+            if (!introStage ||
+                !assessmentSection) {
+
+                return;
+
+            }
+
 
             document.body.classList.add(
                 "assessment-ready"
@@ -1116,36 +1403,56 @@
             );
 
 
-            if (shouldScroll) {
+            assessmentSection.setAttribute(
+                "aria-hidden",
+                "false"
+            );
 
-                assessmentSection.scrollIntoView(
-                    {
-                        behavior: "smooth",
-                        block: "start"
-                    }
-                );
 
-            }
+            /*
+             * Put the page at the top naturally.
+             * No scrollIntoView(), so there is no awkward jump.
+             */
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
         }
 
+
+        /*
+         * If the user came through:
+         *
+         * index.html?assessment=1
+         *
+         * open the assessment directly.
+         */
 
         if (shouldOpenAssessment) {
 
-            openAssessment(false);
+            openAssessment();
 
         }
 
 
-        startButton.addEventListener(
-            "click",
-            () => openAssessment(true)
-        );
+        /*
+         * Normal Start Assessment button.
+         */
+
+        if (startButton) {
+
+            startButton.addEventListener(
+                "click",
+                openAssessment
+            );
+
+        }
 
 
-        // ============================================================
-        // BMI CALCULATOR
-        // ============================================================
+        /* ============================================================
+           BMI CALCULATOR
+        ============================================================ */
 
         (function () {
 
@@ -1171,6 +1478,15 @@
                 document.getElementById(
                     "bmiResultPreview"
                 );
+
+
+            if (!toggleBtn ||
+                !panel ||
+                !computeBtn) {
+
+                return;
+
+            }
 
 
             toggleBtn.addEventListener(
@@ -1238,9 +1554,18 @@
                         `BMI: ${bmi} — enter this into the BMI field below`;
 
 
-                    document.querySelector(
-                        'input[name="bmi"]'
-                    ).value = bmi;
+                    const bmiInput =
+                        document.querySelector(
+                            'input[name="bmi"]'
+                        );
+
+
+                    if (bmiInput) {
+
+                        bmiInput.value =
+                            bmi;
+
+                    }
 
                 }
             );
@@ -1248,9 +1573,9 @@
         })();
 
 
-        // ============================================================
-        // FORM SUBMISSION
-        // ============================================================
+        /* ============================================================
+           FORM SUBMISSION
+        ============================================================ */
 
         document
             .getElementById("assessmentForm")
@@ -1277,7 +1602,8 @@
                         "none";
 
 
-                    btn.disabled = true;
+                    btn.disabled =
+                        true;
 
 
                     btn.textContent =
@@ -1383,7 +1709,10 @@
                             await response.json();
 
 
-                        // Store result
+                        /* ============================================
+                           STORE LAST RESULT
+                        ============================================ */
+
                         const fullResult = {
 
                             id:
@@ -1418,7 +1747,10 @@
                         );
 
 
-                        // Save to records
+                        /* ============================================
+                           SAVE RECORD
+                        ============================================ */
+
                         try {
 
                             const records =
@@ -1444,8 +1776,18 @@
                                 )
                             );
 
-                        } catch (_) {}
+                        } catch (_) {
 
+                            console.warn(
+                                "Unable to save record locally."
+                            );
+
+                        }
+
+
+                        /* ============================================
+                           RESULT PAGE
+                        ============================================ */
 
                         window.location.href =
                             "result.html";
@@ -1481,6 +1823,13 @@
             );
 
     </script>
+
+
+    <!-- ============================================================
+         GLOBAL APP JAVASCRIPT
+    ============================================================ -->
+
     <script src="app.js"></script>
+
 </body>
 </html>
