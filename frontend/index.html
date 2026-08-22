@@ -6,407 +6,1481 @@
     <title>DiaBeta</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
     <style>
-        .bmi-calc-wrapper { margin-bottom: 4px; }
+        .bmi-calc-wrapper {
+            margin-bottom: 4px;
+        }
+
         .bmi-toggle-btn {
-            background: #f0f4f8; border: 1px solid #ccc; border-radius: 6px;
-            padding: 6px 12px; cursor: pointer; font-size: 14px;
+            background: #f0f4f8;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 14px;
         }
+
         .bmi-panel {
-            border: 1px solid #ddd; border-radius: 6px; padding: 12px;
-            margin-top: 8px; background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 8px;
+            background: #fafafa;
         }
-        .bmi-inputs label { display: block; margin-bottom: 6px; font-size: 14px; }
-        .bmi-inputs input { margin-left: 6px; width: 100px; }
-        #bmiComputeBtn { margin-top: 6px; padding: 5px 14px; cursor: pointer; }
-        #bmiResultPreview { margin-top: 10px; font-weight: bold; color: #2a6f2a; font-size: 16px; }
+
+        .bmi-inputs label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .bmi-inputs input {
+            margin-left: 6px;
+            width: 100px;
+        }
+
+        #bmiComputeBtn {
+            margin-top: 6px;
+            padding: 5px 14px;
+            cursor: pointer;
+        }
+
+        #bmiResultPreview {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2a6f2a;
+            font-size: 16px;
+        }
     </style>
 </head>
+
 <body class="home-page">
 
     <!-- Cold-start loading overlay -->
-    <div id="coldStartOverlay" class="cold-start-overlay" aria-live="polite" aria-busy="true">
+    <div id="coldStartOverlay"
+         class="cold-start-overlay"
+         aria-live="polite"
+         aria-busy="true">
+
         <div class="cold-start-content">
-            <img class="cold-start-logo" src="diabeta-logo.png" alt="DiaBeta">
+            <img class="cold-start-logo"
+                 src="diabeta-logo.png"
+                 alt="DiaBeta">
+
             <div class="cold-start-spinner"></div>
-            <h2>Preparing assessment</h2>
-            <p id="coldStartMessage">Loading DiaBeta… this may take a moment on first visit</p>
+
+            <h2 id="coldStartTitle">Preparing assessment</h2>
+
+            <p id="coldStartMessage">
+                Connecting to DiaBeta…
+            </p>
+
             <div class="cold-start-progress">
-                <div class="cold-start-progress-fill" id="coldStartProgress"></div>
+                <div class="cold-start-progress-fill"
+                     id="coldStartProgress"></div>
             </div>
+
+            <button
+                id="continueAnywayBtn"
+                type="button"
+                style="
+                    display:none;
+                    margin-top:18px;
+                    padding:10px 18px;
+                    border:0;
+                    border-radius:8px;
+                    cursor:pointer;
+                    font-weight:600;
+                ">
+                Continue to DiaBeta
+            </button>
         </div>
     </div>
 
+
     <main class="site-shell">
-        <section class="intro-stage animated-welcome" id="introStage" aria-label="Clinical Diabetes Risk Assessment">
+
+        <section class="intro-stage animated-welcome"
+                 id="introStage"
+                 aria-label="Clinical Diabetes Risk Assessment">
+
             <div class="intro-panel intro-panel-brand">
-                <img class="brand-logo" src="diabeta-logo.png" alt="DiaBeta logo">
+                <img class="brand-logo"
+                     src="diabeta-logo.png"
+                     alt="DiaBeta logo">
+
                 <p class="welcome-line">DiaBeta</p>
+
                 <h1>DiaBeta</h1>
             </div>
 
             <div class="intro-panel intro-panel-headline">
-                <p>Designed to assist healthcare professionals in evaluating a patient's risk of diabetes using clinical parameters and machine learning.</p>
+                <p>
+                    Designed to assist healthcare professionals in evaluating
+                    a patient's risk of diabetes using clinical parameters
+                    and machine learning.
+                </p>
             </div>
 
             <div class="intro-panel intro-panel-copy">
-                <p>This tool supports clinician decision-making with clear input structure and evidence-based lab thresholds.</p>
+                <p>
+                    This tool supports clinician decision-making with clear
+                    input structure and evidence-based lab thresholds.
+                </p>
             </div>
 
-            <button class="intro-cta" type="button" id="startAssessment">Start assessment</button>
+            <button class="intro-cta"
+                    type="button"
+                    id="startAssessment">
+                Start assessment
+            </button>
+
         </section>
+
 
         <div class="assessment-header">
-            <a class="brand-mark" href="/" aria-label="DiaBeta home">
-                <img src="diabeta-logo.png" alt="DiaBeta logo">
+
+            <a class="brand-mark"
+               href="/"
+               aria-label="DiaBeta home">
+
+                <img src="diabeta-logo.png"
+                     alt="DiaBeta logo">
+
                 <span>DiaBeta</span>
+
             </a>
-            <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle>
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <rect x="3" y="3" width="7" height="7" rx="2" />
-                    <rect x="14" y="3" width="7" height="7" rx="2" />
-                    <rect x="3" y="14" width="7" height="7" rx="2" />
-                    <rect x="14" y="14" width="7" height="7" rx="2" />
+
+            <button class="nav-toggle"
+                    type="button"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    data-drawer-toggle>
+
+                <svg width="24"
+                     height="24"
+                     viewBox="0 0 24 24"
+                     aria-hidden="true"
+                     focusable="false">
+
+                    <rect x="3"
+                          y="3"
+                          width="7"
+                          height="7"
+                          rx="2" />
+
+                    <rect x="14"
+                          y="3"
+                          width="7"
+                          height="7"
+                          rx="2" />
+
+                    <rect x="3"
+                          y="14"
+                          width="7"
+                          height="7"
+                          rx="2" />
+
+                    <rect x="14"
+                          y="14"
+                          width="7"
+                          height="7"
+                          rx="2" />
+
                 </svg>
             </button>
-            <nav class="top-nav" aria-label="Main navigation">
+
+
+            <nav class="top-nav"
+                 aria-label="Main navigation">
+
                 <a href="records.html">Records</a>
+
                 <a href="about.html">About</a>
+
                 <a href="about_me.html">About Me</a>
-                <span class="assessment-pill">Private assessment</span>
+
+                <span class="assessment-pill">
+                    Private assessment
+                </span>
+
             </nav>
+
         </div>
 
-        <div class="drawer-overlay" aria-hidden="true"></div>
-        <aside class="side-drawer" aria-hidden="true">
-            <button class="drawer-close" type="button" aria-label="Close navigation menu" data-drawer-close>&times;</button>
-            <nav class="drawer-nav" aria-label="Mobile navigation">
+
+        <div class="drawer-overlay"
+             aria-hidden="true">
+        </div>
+
+
+        <aside class="side-drawer"
+               aria-hidden="true">
+
+            <button class="drawer-close"
+                    type="button"
+                    aria-label="Close navigation menu"
+                    data-drawer-close>
+                &times;
+            </button>
+
+            <nav class="drawer-nav"
+                 aria-label="Mobile navigation">
+
                 <a href="records.html">Records</a>
+
                 <a href="about.html">About</a>
+
                 <a href="about_me.html">About Me</a>
-                <span class="assessment-pill">Private assessment</span>
+
+                <span class="assessment-pill">
+                    Private assessment
+                </span>
+
             </nav>
+
         </aside>
 
-        <section class="assessment-section" id="assessmentSection" aria-label="Diabetes risk assessment">
-            <section class="app-hero home-bar" aria-label="Clinical Diabetes Risk Assessment overview">
+
+        <section class="assessment-section"
+                 id="assessmentSection"
+                 aria-label="Diabetes risk assessment">
+
+            <section class="app-hero home-bar"
+                     aria-label="Clinical Diabetes Risk Assessment overview">
+
                 <div class="hero-copy">
+
                     <div class="hero-brand-lockup">
-                        <img class="brand-logo" src="diabeta-logo.png" alt="DiaBeta logo">
+
+                        <img class="brand-logo"
+                             src="diabeta-logo.png"
+                             alt="DiaBeta logo">
+
                         <span>DiaBeta</span>
+
                     </div>
+
                     <h1>DiaBeta</h1>
-                    <p>Clinical Diabetes Risk Assessment powered by machine learning for healthcare professionals.</p>
+
+                    <p>
+                        Clinical Diabetes Risk Assessment powered by
+                        machine learning for healthcare professionals.
+                    </p>
+
 
                     <div class="hero-highlights">
+
                         <div class="hero-highlight-card">
-                            <p class="eyebrow">Trusted by clinicians</p>
-                            <h3>Fast risk assessment with evidence-based clinical features.</h3>
+
+                            <p class="eyebrow">
+                                Trusted by clinicians
+                            </p>
+
+                            <h3>
+                                Fast risk assessment with
+                                evidence-based clinical features.
+                            </h3>
+
                         </div>
+
+
                         <div class="hero-note-list">
+
                             <div class="hero-note">
-                                <strong>Streamlined intake</strong>
-                                <p>Enter key patient metrics quickly with helpful field guidance.</p>
+
+                                <strong>
+                                    Streamlined intake
+                                </strong>
+
+                                <p>
+                                    Enter key patient metrics quickly
+                                    with helpful field guidance.
+                                </p>
+
                             </div>
+
+
                             <div class="hero-note">
-                                <strong>Clear outputs</strong>
-                                <p>Risk scores and summary insights designed for clinical review.</p>
+
+                                <strong>
+                                    Clear outputs
+                                </strong>
+
+                                <p>
+                                    Risk scores and summary insights
+                                    designed for clinical review.
+                                </p>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
 
-                <div class="hero-image-panel" aria-hidden="true">
-                    <img src="health-background.jpg" alt="">
+
+                <div class="hero-image-panel"
+                     aria-hidden="true">
+
+                    <img src="health-background.jpg"
+                         alt="">
+
                     <div class="hero-overlay-card">
-                        <p class="eyebrow">Model probability</p>
-                        <div class="hero-score">5.5<span>%</span></div>
-                        <p>Sample estimate for standardized diabetes risk assessment.</p>
+
+                        <p class="eyebrow">
+                            Model probability
+                        </p>
+
+                        <div class="hero-score">
+                            5.5<span>%</span>
+                        </div>
+
+                        <p>
+                            Sample estimate for standardized
+                            diabetes risk assessment.
+                        </p>
+
                     </div>
+
                 </div>
+
             </section>
 
+
             <div class="assessment-layout">
-                <aside class="assessment-summary" aria-label="Assessment summary">
-                    <p class="eyebrow">Clinical assessment</p>
-                    <h2>Enter patient clinical parameters.</h2>
-                    <p class="summary-copy">Designed to assist healthcare professionals in evaluating a patient's risk of diabetes using clinical parameters and machine learning.</p>
+
+                <aside class="assessment-summary"
+                       aria-label="Assessment summary">
+
+                    <p class="eyebrow">
+                        Clinical assessment
+                    </p>
+
+                    <h2>
+                        Enter patient clinical parameters.
+                    </h2>
+
+                    <p class="summary-copy">
+                        Designed to assist healthcare professionals
+                        in evaluating a patient's risk of diabetes
+                        using clinical parameters and machine learning.
+                    </p>
+
+
                     <div class="summary-metrics">
+
                         <div>
+
                             <strong>7</strong>
-                            <span>inputs</span>
+
+                            <span>
+                                inputs
+                            </span>
+
                         </div>
+
+
                         <div>
+
                             <strong>1</strong>
-                            <span>result</span>
+
+                            <span>
+                                result
+                            </span>
+
                         </div>
+
                     </div>
+
                 </aside>
 
-                <form class="assessment-form" id="assessmentForm">
+
+                <form class="assessment-form"
+                      id="assessmentForm">
+
                     <div class="form-grid">
-                        <label class="field">
-                            <span>Patient Name</span>
-                            <input type="text" name="patient_name" placeholder="Full name" required>
-                        </label>
 
                         <label class="field">
-                            <span>Patient Address</span>
-                            <input type="text" name="patient_address" placeholder="Home address" required>
+
+                            <span>
+                                Patient Name
+                            </span>
+
+                            <input
+                                type="text"
+                                name="patient_name"
+                                placeholder="Full name"
+                                required>
+
                         </label>
 
-                        <label class="field">
-                            <span>Age</span>
-                            <input type="number" name="age" min="1" max="120" placeholder="45" required>
-                        </label>
 
                         <label class="field">
-                            <span>Sex</span>
-                            <select name="sex" required>
-                                <option value="" disabled selected>Select sex</option>
-                                <option value="0">Female</option>
-                                <option value="1">Male</option>
+
+                            <span>
+                                Patient Address
+                            </span>
+
+                            <input
+                                type="text"
+                                name="patient_address"
+                                placeholder="Home address"
+                                required>
+
+                        </label>
+
+
+                        <label class="field">
+
+                            <span>
+                                Age
+                            </span>
+
+                            <input
+                                type="number"
+                                name="age"
+                                min="1"
+                                max="120"
+                                placeholder="45"
+                                required>
+
+                        </label>
+
+
+                        <label class="field">
+
+                            <span>
+                                Sex
+                            </span>
+
+                            <select
+                                name="sex"
+                                required>
+
+                                <option
+                                    value=""
+                                    disabled
+                                    selected>
+                                    Select sex
+                                </option>
+
+                                <option value="0">
+                                    Female
+                                </option>
+
+                                <option value="1">
+                                    Male
+                                </option>
+
                             </select>
+
                         </label>
+
 
                         <div class="field field-wide bmi-calc-wrapper">
-                            <button type="button" id="bmiToggleBtn" class="bmi-toggle-btn">
-                                BMI Calculator (optional helper)
+
+                            <button
+                                type="button"
+                                id="bmiToggleBtn"
+                                class="bmi-toggle-btn">
+
+                                BMI Calculator
+                                (optional helper)
+
                             </button>
 
-                            <div id="bmiPanel" class="bmi-panel" style="display:none;">
+
+                            <div
+                                id="bmiPanel"
+                                class="bmi-panel"
+                                style="display:none;">
+
                                 <div class="bmi-inputs">
-                                    <label>Weight (kg): <input type="number" id="bmiWeightKg" step="0.1" min="0"></label>
-                                    <label>Height (cm): <input type="number" id="bmiHeightCm" step="0.1" min="0"></label>
+
+                                    <label>
+                                        Weight (kg):
+
+                                        <input
+                                            type="number"
+                                            id="bmiWeightKg"
+                                            step="0.1"
+                                            min="0">
+
+                                    </label>
+
+
+                                    <label>
+                                        Height (cm):
+
+                                        <input
+                                            type="number"
+                                            id="bmiHeightCm"
+                                            step="0.1"
+                                            min="0">
+
+                                    </label>
+
                                 </div>
-                                <button type="button" id="bmiComputeBtn">Calculate</button>
-                                <div id="bmiResultPreview"></div>
+
+
+                                <button
+                                    type="button"
+                                    id="bmiComputeBtn">
+
+                                    Calculate
+
+                                </button>
+
+
+                                <div id="bmiResultPreview">
+                                </div>
+
                             </div>
+
                         </div>
 
-                        <label class="field">
-                            <span>BMI <small>(kg/m²)</small></span>
-                            <input type="number" step="0.1" name="bmi" min="1" placeholder="27.5" required>
-                        </label>
 
                         <label class="field">
-                            <span>Waist Circumference</span>
-                            <input type="number" step="0.1" name="waist_circumference_cm" min="1" placeholder="92.0" required>
-                            <small>Measured in centimeters</small>
+
+                            <span>
+                                BMI
+                                <small>
+                                    (kg/m²)
+                                </small>
+                            </span>
+
+                            <input
+                                type="number"
+                                step="0.1"
+                                name="bmi"
+                                min="1"
+                                placeholder="27.5"
+                                required>
+
                         </label>
 
-                        <label class="field">
-                            <span>HbA1c <small>(%)</small></span>
-                            <input type="number" step="0.1" name="hba1c" min="1" placeholder="5.6" required>
-                            <small>Percent</small>
-                        </label>
 
                         <label class="field">
-                            <span>Fasting Glucose <small>(mg/dL)</small></span>
-                            <input type="number" step="0.1" name="fasting_glucose_mgdl" min="1" placeholder="96" required>
-                            <small>mg/dL</small>
+
+                            <span>
+                                Waist Circumference
+                            </span>
+
+                            <input
+                                type="number"
+                                step="0.1"
+                                name="waist_circumference_cm"
+                                min="1"
+                                placeholder="92.0"
+                                required>
+
+                            <small>
+                                Measured in centimeters
+                            </small>
+
                         </label>
+
+
+                        <label class="field">
+
+                            <span>
+                                HbA1c
+                                <small>
+                                    (%)
+                                </small>
+                            </span>
+
+                            <input
+                                type="number"
+                                step="0.1"
+                                name="hba1c"
+                                min="1"
+                                placeholder="5.6"
+                                required>
+
+                            <small>
+                                Percent
+                            </small>
+
+                        </label>
+
+
+                        <label class="field">
+
+                            <span>
+                                Fasting Glucose
+                                <small>
+                                    (mg/dL)
+                                </small>
+                            </span>
+
+                            <input
+                                type="number"
+                                step="0.1"
+                                name="fasting_glucose_mgdl"
+                                min="1"
+                                placeholder="96"
+                                required>
+
+                            <small>
+                                mg/dL
+                            </small>
+
+                        </label>
+
 
                         <label class="field field-wide">
-                            <span>Race/Ethnicity</span>
-                            <select name="race_ethnicity" id="raceSelect" required>
-                                <option value="" disabled selected>Select race or ethnicity</option>
+
+                            <span>
+                                Race/Ethnicity
+                            </span>
+
+                            <select
+                                name="race_ethnicity"
+                                id="raceSelect"
+                                required>
+
+                                <option
+                                    value=""
+                                    disabled
+                                    selected>
+                                    Select race or ethnicity
+                                </option>
+
                             </select>
+
                         </label>
+
                     </div>
 
-                    <button class="primary-action" type="submit" id="submitBtn">Estimate risk</button>
-                    <p id="formError" style="color:#d64554; margin-top:12px; display:none;"></p>
+
+                    <button
+                        class="primary-action"
+                        type="submit"
+                        id="submitBtn">
+
+                        Estimate risk
+
+                    </button>
+
+
+                    <p
+                        id="formError"
+                        style="
+                            color:#d64554;
+                            margin-top:12px;
+                            display:none;
+                        ">
+                    </p>
+
                 </form>
+
             </div>
+
         </section>
+
     </main>
 
+
     <script>
-        // ========== CONFIG ==========
-        // Replace with your Render backend URL (no trailing slash)
-        const BACKEND_URL = "https://diabeta-2.onrender.com";
-        // ============================
 
-        // ----- Cold-start waiter -----
+        // ============================================================
+        // CONFIGURATION
+        // ============================================================
+
+        const BACKEND_URL =
+            "https://diabeta-2.onrender.com";
+
+
+        // ============================================================
+        // COLD START / BACKEND CONNECTION
+        // ============================================================
+
         (function () {
-            const overlay = document.getElementById('coldStartOverlay');
-            const message = document.getElementById('coldStartMessage');
-            const progress = document.getElementById('coldStartProgress');
-            const MAX_WAIT = 90000;
-            const INTERVAL = 2500;
-            let start = Date.now();
 
-            const progressTimer = setInterval(() => {
-                const elapsed = Date.now() - start;
-                progress.style.width = Math.min(90, (elapsed / MAX_WAIT) * 100) + '%';
-            }, 300);
+            const overlay =
+                document.getElementById("coldStartOverlay");
+
+            const title =
+                document.getElementById("coldStartTitle");
+
+            const message =
+                document.getElementById("coldStartMessage");
+
+            const progress =
+                document.getElementById("coldStartProgress");
+
+            const continueBtn =
+                document.getElementById("continueAnywayBtn");
+
+
+            const MAX_WAIT = 30000;
+
+            const CHECK_INTERVAL = 2500;
+
+            const HEALTH_TIMEOUT = 5000;
+
+
+            let backendReady = false;
+
+            let startTime = Date.now();
+
+
+            // --------------------------------------------------------
+            // Check whether backend is alive
+            // --------------------------------------------------------
 
             async function checkHealth() {
+
                 try {
-                    const controller = new AbortController();
-                    const t = setTimeout(() => controller.abort(), 4000);
-                    const res = await fetch(`${BACKEND_URL}/health`, { cache: 'no-store', signal: controller.signal });
-                    clearTimeout(t);
-                    return res.ok;
-                } catch (e) {
-                    return false;
+
+                    const controller =
+                        new AbortController();
+
+                    const timeout =
+                        setTimeout(
+                            () => controller.abort(),
+                            HEALTH_TIMEOUT
+                        );
+
+
+                    const response =
+                        await fetch(
+                            `${BACKEND_URL}/health`,
+                            {
+                                method: "GET",
+                                cache: "no-store",
+                                signal: controller.signal
+                            }
+                        );
+
+
+                    clearTimeout(timeout);
+
+
+                    if (response.ok) {
+
+                        backendReady = true;
+
+                        return true;
+
+                    }
+
+                } catch (error) {
+
+                    // Backend may simply be waking from sleep.
+
                 }
+
+                return false;
+
             }
 
-            async function waitForBackend() {
-                if (await checkHealth()) {
-                    finish();
+
+            // --------------------------------------------------------
+            // Remove overlay
+            // --------------------------------------------------------
+
+            function hideOverlay() {
+
+                if (!overlay) {
                     return;
                 }
-                message.textContent = 'Waking the server… this can take 20–60 seconds on first visit';
 
-                while (Date.now() - start < MAX_WAIT) {
-                    if (await checkHealth()) {
-                        finish();
+
+                overlay.setAttribute(
+                    "aria-busy",
+                    "false"
+                );
+
+
+                overlay.classList.add("hidden");
+
+
+                setTimeout(() => {
+
+                    if (overlay) {
+                        overlay.remove();
+                    }
+
+                }, 500);
+
+            }
+
+
+            // --------------------------------------------------------
+            // Backend is ready
+            // --------------------------------------------------------
+
+            function backendConnected() {
+
+                backendReady = true;
+
+
+                if (title) {
+                    title.textContent =
+                        "DiaBeta is ready";
+                }
+
+
+                if (message) {
+                    message.textContent =
+                        "Ready to perform your assessment.";
+                }
+
+
+                if (progress) {
+                    progress.style.width = "100%";
+                }
+
+
+                loadRaceMap();
+
+
+                setTimeout(() => {
+
+                    hideOverlay();
+
+                }, 300);
+
+            }
+
+
+            // --------------------------------------------------------
+            // Backend is slow
+            // --------------------------------------------------------
+
+            function backendSlow() {
+
+                if (title) {
+                    title.textContent =
+                        "Server is waking up";
+                }
+
+
+                if (message) {
+                    message.textContent =
+                        "The DiaBeta server is taking longer than usual to start. You can continue to the assessment.";
+                }
+
+
+                if (continueBtn) {
+
+                    continueBtn.style.display =
+                        "inline-block";
+
+                    continueBtn.onclick = () => {
+
+                        hideOverlay();
+
+                        loadRaceMap();
+
+                    };
+
+                }
+
+            }
+
+
+            // --------------------------------------------------------
+            // Progress indicator
+            // --------------------------------------------------------
+
+            const progressTimer =
+                setInterval(() => {
+
+                    if (!progress) {
                         return;
                     }
-                    await new Promise(r => setTimeout(r, INTERVAL));
+
+
+                    const elapsed =
+                        Date.now() - startTime;
+
+
+                    const percentage =
+                        Math.min(
+                            90,
+                            (elapsed / MAX_WAIT) * 100
+                        );
+
+
+                    progress.style.width =
+                        percentage + "%";
+
+
+                }, 300);
+
+
+            // --------------------------------------------------------
+            // Main backend waiter
+            // --------------------------------------------------------
+
+            async function waitForBackend() {
+
+                // Check immediately
+                if (await checkHealth()) {
+
+                    clearInterval(progressTimer);
+
+                    backendConnected();
+
+                    return;
+
                 }
-                message.textContent = 'Taking longer than expected. Please refresh the page.';
-                progress.style.width = '100%';
+
+
+                if (message) {
+
+                    message.textContent =
+                        "Waking the DiaBeta server… this can take a few moments on first visit.";
+
+                }
+
+
+                while (
+                    !backendReady &&
+                    Date.now() - startTime < MAX_WAIT
+                ) {
+
+                    await new Promise(
+                        resolve =>
+                            setTimeout(
+                                resolve,
+                                CHECK_INTERVAL
+                            )
+                    );
+
+
+                    if (await checkHealth()) {
+
+                        clearInterval(progressTimer);
+
+                        backendConnected();
+
+                        return;
+
+                    }
+
+                }
+
+
+                // ----------------------------------------------------
+                // Backend did not respond within timeout
+                // ----------------------------------------------------
+
+                clearInterval(progressTimer);
+
+
+                backendSlow();
+
             }
 
-            function finish() {
-                clearInterval(progressTimer);
-                progress.style.width = '100%';
-                setTimeout(() => {
-                    overlay.classList.add('hidden');
-                    setTimeout(() => overlay.remove(), 500);
-                }, 400);
-                loadRaceMap();
-            }
 
             waitForBackend();
+
         })();
 
-        // ----- Load race map from backend -----
+
+        // ============================================================
+        // LOAD RACE / ETHNICITY MAP
+        // ============================================================
+
         async function loadRaceMap() {
+
             try {
-                const res = await fetch(`${BACKEND_URL}/api/race-map`);
-                const raceMap = await res.json();
-                const select = document.getElementById('raceSelect');
-                Object.entries(raceMap).forEach(([code, label]) => {
-                    const opt = document.createElement('option');
-                    opt.value = code;
-                    opt.textContent = label;
-                    select.appendChild(opt);
-                });
-            } catch (e) {
-                console.error('Failed to load race map', e);
-            }
-        }
 
-        // ----- Intro / assessment toggle -----
-        const startButton = document.getElementById("startAssessment");
-        const introStage = document.getElementById("introStage");
-        const assessmentSection = document.getElementById("assessmentSection");
-        const shouldOpenAssessment = new URLSearchParams(window.location.search).get("assessment") === "1";
+                const response =
+                    await fetch(
+                        `${BACKEND_URL}/api/race-map`,
+                        {
+                            cache: "no-store"
+                        }
+                    );
 
-        function openAssessment(shouldScroll = true) {
-            document.body.classList.add("assessment-ready");
-            introStage.setAttribute("aria-hidden", "true");
-            if (shouldScroll) {
-                assessmentSection.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        }
 
-        if (shouldOpenAssessment) openAssessment(false);
-        startButton.addEventListener("click", () => openAssessment(true));
+                if (!response.ok) {
 
-        // ----- BMI calculator -----
-        (function() {
-            const toggleBtn = document.getElementById('bmiToggleBtn');
-            const panel = document.getElementById('bmiPanel');
-            const computeBtn = document.getElementById('bmiComputeBtn');
-            const resultPreview = document.getElementById('bmiResultPreview');
+                    throw new Error(
+                        "Failed to load race map"
+                    );
 
-            toggleBtn.addEventListener('click', () => {
-                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-            });
+                }
 
-            computeBtn.addEventListener('click', () => {
-                const weightKg = parseFloat(document.getElementById('bmiWeightKg').value);
-                const heightCm = parseFloat(document.getElementById('bmiHeightCm').value);
-                if (!weightKg || !heightCm) {
-                    resultPreview.textContent = 'Enter weight and height';
+
+                const raceMap =
+                    await response.json();
+
+
+                const select =
+                    document.getElementById(
+                        "raceSelect"
+                    );
+
+
+                if (!select) {
                     return;
                 }
-                const heightM = heightCm / 100;
-                let bmi = weightKg / (heightM * heightM);
-                bmi = Math.round(bmi * 10) / 10;
-                resultPreview.textContent = `BMI: ${bmi} — enter this into the BMI field below`;
-                document.querySelector('input[name="bmi"]').value = bmi;
-            });
+
+
+                // Prevent duplicate options
+                select.innerHTML = `
+                    <option
+                        value=""
+                        disabled
+                        selected>
+                        Select race or ethnicity
+                    </option>
+                `;
+
+
+                Object.entries(raceMap)
+                    .forEach(
+                        ([code, label]) => {
+
+                            const option =
+                                document.createElement(
+                                    "option"
+                                );
+
+
+                            option.value =
+                                code;
+
+                            option.textContent =
+                                label;
+
+
+                            select.appendChild(
+                                option
+                            );
+
+                        }
+                    );
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load race map:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // ============================================================
+        // INTRO / ASSESSMENT TOGGLE
+        // ============================================================
+
+        const startButton =
+            document.getElementById(
+                "startAssessment"
+            );
+
+
+        const introStage =
+            document.getElementById(
+                "introStage"
+            );
+
+
+        const assessmentSection =
+            document.getElementById(
+                "assessmentSection"
+            );
+
+
+        const shouldOpenAssessment =
+            new URLSearchParams(
+                window.location.search
+            ).get("assessment") === "1";
+
+
+        function openAssessment(
+            shouldScroll = true
+        ) {
+
+            document.body.classList.add(
+                "assessment-ready"
+            );
+
+
+            introStage.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+
+            if (shouldScroll) {
+
+                assessmentSection.scrollIntoView(
+                    {
+                        behavior: "smooth",
+                        block: "start"
+                    }
+                );
+
+            }
+
+        }
+
+
+        if (shouldOpenAssessment) {
+
+            openAssessment(false);
+
+        }
+
+
+        startButton.addEventListener(
+            "click",
+            () => openAssessment(true)
+        );
+
+
+        // ============================================================
+        // BMI CALCULATOR
+        // ============================================================
+
+        (function () {
+
+            const toggleBtn =
+                document.getElementById(
+                    "bmiToggleBtn"
+                );
+
+
+            const panel =
+                document.getElementById(
+                    "bmiPanel"
+                );
+
+
+            const computeBtn =
+                document.getElementById(
+                    "bmiComputeBtn"
+                );
+
+
+            const resultPreview =
+                document.getElementById(
+                    "bmiResultPreview"
+                );
+
+
+            toggleBtn.addEventListener(
+                "click",
+                () => {
+
+                    panel.style.display =
+                        panel.style.display === "none"
+                            ? "block"
+                            : "none";
+
+                }
+            );
+
+
+            computeBtn.addEventListener(
+                "click",
+                () => {
+
+                    const weightKg =
+                        parseFloat(
+                            document.getElementById(
+                                "bmiWeightKg"
+                            ).value
+                        );
+
+
+                    const heightCm =
+                        parseFloat(
+                            document.getElementById(
+                                "bmiHeightCm"
+                            ).value
+                        );
+
+
+                    if (
+                        !weightKg ||
+                        !heightCm
+                    ) {
+
+                        resultPreview.textContent =
+                            "Enter weight and height";
+
+                        return;
+
+                    }
+
+
+                    const heightM =
+                        heightCm / 100;
+
+
+                    let bmi =
+                        weightKg /
+                        (heightM * heightM);
+
+
+                    bmi =
+                        Math.round(
+                            bmi * 10
+                        ) / 10;
+
+
+                    resultPreview.textContent =
+                        `BMI: ${bmi} — enter this into the BMI field below`;
+
+
+                    document.querySelector(
+                        'input[name="bmi"]'
+                    ).value = bmi;
+
+                }
+            );
+
         })();
 
-        // ----- Form submit via API -----
-        document.getElementById('assessmentForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const errEl = document.getElementById('formError');
-            errEl.style.display = 'none';
-            btn.disabled = true;
-            btn.textContent = 'Estimating…';
 
-            const formData = new FormData(e.target);
-            const payload = {
-                patient_name: formData.get('patient_name'),
-                patient_address: formData.get('patient_address'),
-                age: formData.get('age'),
-                sex: formData.get('sex'),
-                bmi: formData.get('bmi'),
-                waist_circumference_cm: formData.get('waist_circumference_cm'),
-                hba1c: formData.get('hba1c'),
-                fasting_glucose_mgdl: formData.get('fasting_glucose_mgdl'),
-                race_ethnicity: formData.get('race_ethnicity')
-            };
+        // ============================================================
+        // FORM SUBMISSION
+        // ============================================================
 
-            try {
-                const res = await fetch(`${BACKEND_URL}/api/predict`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+        document
+            .getElementById("assessmentForm")
+            .addEventListener(
+                "submit",
+                async (e) => {
 
-                if (!res.ok) {
-                    const err = await res.json().catch(() => ({}));
-                    throw new Error(err.error || 'Prediction failed');
+                    e.preventDefault();
+
+
+                    const btn =
+                        document.getElementById(
+                            "submitBtn"
+                        );
+
+
+                    const errEl =
+                        document.getElementById(
+                            "formError"
+                        );
+
+
+                    errEl.style.display =
+                        "none";
+
+
+                    btn.disabled = true;
+
+
+                    btn.textContent =
+                        "Estimating…";
+
+
+                    const formData =
+                        new FormData(
+                            e.target
+                        );
+
+
+                    const payload = {
+
+                        patient_name:
+                            formData.get(
+                                "patient_name"
+                            ),
+
+                        patient_address:
+                            formData.get(
+                                "patient_address"
+                            ),
+
+                        age:
+                            formData.get(
+                                "age"
+                            ),
+
+                        sex:
+                            formData.get(
+                                "sex"
+                            ),
+
+                        bmi:
+                            formData.get(
+                                "bmi"
+                            ),
+
+                        waist_circumference_cm:
+                            formData.get(
+                                "waist_circumference_cm"
+                            ),
+
+                        hba1c:
+                            formData.get(
+                                "hba1c"
+                            ),
+
+                        fasting_glucose_mgdl:
+                            formData.get(
+                                "fasting_glucose_mgdl"
+                            ),
+
+                        race_ethnicity:
+                            formData.get(
+                                "race_ethnicity"
+                            )
+
+                    };
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                `${BACKEND_URL}/api/predict`,
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            payload
+                                        )
+                                }
+                            );
+
+
+                        if (!response.ok) {
+
+                            const errorData =
+                                await response
+                                    .json()
+                                    .catch(
+                                        () => ({})
+                                    );
+
+
+                            throw new Error(
+                                errorData.error ||
+                                "Prediction failed"
+                            );
+
+                        }
+
+
+                        const result =
+                            await response.json();
+
+
+                        // Store result
+                        const fullResult = {
+
+                            id:
+                                Date.now().toString(),
+
+                            createdAt:
+                                new Date().toISOString(),
+
+                            tier:
+                                result.tier,
+
+                            probability:
+                                result.prob_high,
+
+                            person:
+                                result.person,
+
+                            reason:
+                                result.reason,
+
+                            shap:
+                                result.shap_explanation
+
+                        };
+
+
+                        localStorage.setItem(
+                            "diabeta_last_result",
+                            JSON.stringify(
+                                fullResult
+                            )
+                        );
+
+
+                        // Save to records
+                        try {
+
+                            const records =
+                                JSON.parse(
+                                    localStorage.getItem(
+                                        "diabetaRecords"
+                                    ) || "[]"
+                                );
+
+
+                            records.unshift(
+                                fullResult
+                            );
+
+
+                            localStorage.setItem(
+                                "diabetaRecords",
+                                JSON.stringify(
+                                    records.slice(
+                                        0,
+                                        50
+                                    )
+                                )
+                            );
+
+                        } catch (_) {}
+
+
+                        window.location.href =
+                            "result.html";
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "Prediction error:",
+                            error
+                        );
+
+
+                        errEl.textContent =
+                            error.message ||
+                            "Something went wrong. Please try again.";
+
+
+                        errEl.style.display =
+                            "block";
+
+
+                        btn.disabled =
+                            false;
+
+
+                        btn.textContent =
+                            "Estimate risk";
+
+                    }
+
                 }
+            );
 
-                const result = await res.json();
+    </script>
 
-                // Store for result page
-                const fullResult = {
-                    id: Date.now().toString(),
-                    createdAt: new Date().toISOString(),
-                    tier: result.tier,
-                    probability: result.prob_high,
-                    person: result.person,
-                    reason: result.reason,
-                    shap: result.shap_explanation
-                };
-                localStorage.setItem('diabeta_last_result', JSON.stringify(fullResult));
-
-                // Also save to records
-                try {
-                    const records = JSON.parse(localStorage.getItem('diabetaRecords') || '[]');
-                    records.unshift(fullResult);
-                    localStorage.setItem('diabetaRecords', JSON.stringify(records.slice(0, 50)));
-                } catch (_) {}
-
-                window.location.href = 'result.html';
-            } catch (err) {
-                errEl.textContent = err.message || 'Something went wrong. Please try again.';
-                errEl.style.display = 'block';
-                btn.disabled = false;
-                btn.textContent = 'Estimate risk';
-            }
-        });
-
-        // Drawer
+</body>
+</html>
