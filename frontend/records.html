@@ -11,7 +11,7 @@
 <body class="records-page">
     <main class="page-shell">
         <header class="result-header">
-            <a class="brand-mark" href="/?assessment=1" aria-label="DiaBeta assessment">
+            <a class="brand-mark" href="index.html?assessment=1" aria-label="DiaBeta assessment">
                 <script src="{{ url_for('static', filename='app.js') }}"></script>
                 <span>DiaBeta</span>
             </a>
@@ -21,10 +21,9 @@
                 <span></span>
             </button>
             <nav class="top-nav" aria-label="Main navigation">
-                <a href="/?assessment=1">Assessment</a>
-                <a href="/about">About</a>
-                <a href="/about-me">About Me</a>
-                <button class="secondary-action danger-action" type="button" data-clear-records>Clear Records</button>
+                <a href="index.html?assessment=1">Assessment</a>
+                <a href="about.html">About</a>
+                <a href="about_me.html">About Me</a>
             </nav>
         </header>
         <div class="drawer-overlay" aria-hidden="true"></div>
@@ -34,7 +33,6 @@
                 <a href="/?assessment=1">Assessment</a>
                 <a href="/about">About</a>
                 <a href="/about-me">About Me</a>
-                <button class="secondary-action danger-action" type="button" data-clear-records>Clear Records</button>
             </nav>
         </aside>
 
