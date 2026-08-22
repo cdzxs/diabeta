@@ -3,64 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>About DiaBeta</title>
-    <link rel="stylesheet" href="style.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="about-page">
+
     <main class="page-shell">
+
+        <!-- HEADER -->
         <header class="result-header">
-            <a class="brand-mark" href="index.html?assessment=1" aria-label="DiaBeta assessment">
+
+            <a
+                class="brand-mark"
+                href="index.html?assessment=1"
+                aria-label="DiaBeta assessment"
+            >
                 <img src="diabeta-logo.png" alt="DiaBeta logo">
                 <span>DiaBeta</span>
             </a>
-            <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle>
+
+            <button
+                class="nav-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                data-drawer-toggle
+            >
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
+
+            <!-- DESKTOP NAVIGATION -->
             <nav class="top-nav" aria-label="Main navigation">
-                <a href="index.html?assessment=1">Assessment</a>
-                <a href="records.html">Records</a>
-                <a href="about_me.html">About Me</a>
+
+                <a href="index.html?assessment=1">
+                    Assessment
+                </a>
+
+                <a href="records.html">
+                    Records
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="about_me.html">
+                    About Me
+                </a>
+
             </nav>
+
         </header>
-        <div class="drawer-overlay" aria-hidden="true"></div>
-        <aside class="side-drawer" aria-hidden="true">
-            <button class="drawer-close" type="button" aria-label="Close navigation menu" data-drawer-close>&times;</button>
-            <nav class="drawer-nav" aria-label="Mobile navigation">
-                <a href="index.html?assessment=1">Assessment</a>
-                <a href="records.html">Records</a>
-                <a href="about_me.html">About Me</a>
+
+
+        <!-- MOBILE OVERLAY -->
+        <div
+            class="drawer-overlay"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- MOBILE NAVIGATION -->
+        <aside
+            class="side-drawer"
+            aria-hidden="true"
+        >
+
+            <button
+                class="drawer-close"
+                type="button"
+                aria-label="Close navigation menu"
+                data-drawer-close
+            >
+                &times;
+            </button>
+
+            <nav
+                class="drawer-nav"
+                aria-label="Mobile navigation"
+            >
+
+                <a href="index.html?assessment=1">
+                    Assessment
+                </a>
+
+                <a href="records.html">
+                    Records
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="about_me.html">
+                    About Me
+                </a>
+
             </nav>
+
         </aside>
 
+
+        <!-- ABOUT HERO -->
         <section class="info-hero image-backed-hero">
+
             <div>
-                <p class="eyebrow">About the tool</p>
-                <h1>A clinical assessment tool for earlier diabetes risk awareness.</h1>
-                <p>This clinical diabetes risk assessment tool uses machine learning and key health indicators to estimate diabetes risk for healthcare professionals.</p>
-                <a class="primary-link" href="index.html?assessment=1">Start Assessment</a>
+
+                <p class="eyebrow">
+                    About the tool
+                </p>
+
+                <h1>
+                    A clinical assessment tool for earlier diabetes risk awareness.
+                </h1>
+
+                <p>
+                    This clinical diabetes risk assessment tool uses machine
+                    learning and key health indicators to estimate diabetes
+                    risk for healthcare professionals.
+                </p>
+
+                <a
+                    class="primary-link"
+                    href="index.html?assessment=1"
+                >
+                    Start Assessment
+                </a>
+
             </div>
+
         </section>
 
+
+        <!-- INFORMATION CARDS -->
         <section class="info-grid">
-            <article class="info-card">
-                <h2>What the tool does</h2>
-                <p>This tool combines submitted measurements such as age, BMI, waist circumference, HbA1c, fasting glucose, sex, and race or ethnicity to estimate a diabetes risk tier.</p>
-            </article>
 
             <article class="info-card">
-                <h2>Motivation</h2>
-                <p>Millions of people have diabetes across the world. Early detection helps people seek professional guidance sooner and take practical steps toward better health.</p>
+
+                <h2>
+                    What the tool does
+                </h2>
+
+                <p>
+                    This tool combines submitted measurements such as age,
+                    BMI, waist circumference, HbA1c, fasting glucose, sex,
+                    and race or ethnicity to estimate a diabetes risk tier.
+                </p>
+
             </article>
 
+
             <article class="info-card">
-                <h2>Important disclaimer</h2>
-                <p>This tool is not intended to diagnose any medical condition. Its predictions are based on a machine learning model and cannot substitute professional medical advice, diagnosis, or laboratory testing.</p>
+
+                <h2>
+                    Motivation
+                </h2>
+
+                <p>
+                    Millions of people have diabetes across the world.
+                    Early detection helps people seek professional guidance
+                    sooner and take practical steps toward better health.
+                </p>
+
             </article>
+
+
+            <article class="info-card">
+
+                <h2>
+                    Important disclaimer
+                </h2>
+
+                <p>
+                    This tool is not intended to diagnose any medical condition.
+                    Its predictions are based on a machine learning model and
+                    cannot substitute professional medical advice, diagnosis,
+                    or laboratory testing.
+                </p>
+
+            </article>
+
         </section>
+
     </main>
+
+
+    <!-- APPLICATION JAVASCRIPT -->
     <script src="app.js"></script>
+
 </body>
 </html>
