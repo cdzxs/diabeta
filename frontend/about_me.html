@@ -12,6 +12,7 @@
         <header class="result-header">
             <a class="brand-mark" href="/?assessment=1" aria-label="DiaBeta assessment">
                 <img src="{{ url_for('static', filename='diabeta-logo.png') }}" alt="DiaBeta logo">
+
                 <span>DiaBeta</span>
             </a>
             <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle>
@@ -37,7 +38,7 @@
 
         <section class="about-layout">
             <div class="about-photo-panel">
-                <img src="{{ url_for('static', filename='profile-photo.png') }}" alt="Ezeji Godswill">
+                <img src="profile-photo.png" alt="Ezeji Godswill">
             </div>
 
             <div class="about-content">
@@ -72,6 +73,6 @@
             window.addEventListener('resize', setHeaderHeight);
         })();
 </script>
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="app.js"></script>
 </body>
 </html>
