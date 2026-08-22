@@ -3,75 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Records - DiaBeta</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
 
+    <title>Records - DiaBeta</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="records-page">
+
     <main class="page-shell">
+
+        <!-- HEADER -->
         <header class="result-header">
-            <a class="brand-mark" href="index.html?assessment=1" aria-label="DiaBeta assessment">
+
+            <a
+                class="brand-mark"
+                href="index.html?assessment=1"
+                aria-label="DiaBeta assessment"
+            >
+                <img src="diabeta-logo.png" alt="DiaBeta logo">
                 <span>DiaBeta</span>
             </a>
-            <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-drawer-toggle>
+
+            <button
+                class="nav-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                data-drawer-toggle
+            >
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <nav class="top-nav" aria-label="Main navigation">
-                <a href="index.html?assessment=1">Assessment</a>
-                <a href="about.html">About</a>
-                <a href="about_me.html">About Me</a>
-            </nav>
-        </header>
-        <div class="drawer-overlay" aria-hidden="true"></div>
 
-        <aside class="side-drawer" aria-hidden="true">
+            <!-- DESKTOP NAVIGATION -->
+            <nav class="top-nav" aria-label="Main navigation">
+
+                <a href="index.html?assessment=1">
+                    Assessment
+                </a>
+
+                <a href="records.html">
+                    Records
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="about_me.html">
+                    About Me
+                </a>
+
+            </nav>
+
+        </header>
+
+
+        <!-- MOBILE OVERLAY -->
+        <div
+            class="drawer-overlay"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- MOBILE DRAWER -->
+        <aside
+            class="side-drawer"
+            aria-hidden="true"
+        >
+
             <button
                 class="drawer-close"
                 type="button"
                 aria-label="Close navigation menu"
                 data-drawer-close
-            >&times;</button>
+            >
+                &times;
+            </button>
 
-            <nav class="drawer-nav" aria-label="Mobile navigation">
-                <a href="index.html?assessment=1">Assessment</a>
-                <a href="about.html">About</a>
-                <a href="about_me.html">About Me</a>
+            <nav
+                class="drawer-nav"
+                aria-label="Mobile navigation"
+            >
+
+                <a href="index.html?assessment=1">
+                    Assessment
+                </a>
+
+                <a href="records.html">
+                    Records
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="about_me.html">
+                    About Me
+                </a>
+
             </nav>
+
         </aside>
 
+
+        <!-- PAGE HEADER -->
         <section class="page-hero">
-            <p class="eyebrow">Saved locally</p>
-            <h1>Assessment records</h1>
-            <p>Your previous assessments are stored in this browser only. You can clear them at any time.</p>
+
+            <p class="eyebrow">
+                Saved locally
+            </p>
+
+            <h1>
+                Assessment records
+            </h1>
+
+            <p>
+                Your previous assessments are stored in this browser only.
+                You can clear them at any time.
+            </p>
+
         </section>
 
-        <section class="records-list" id="recordsList" aria-live="polite"></section>
+
+        <!-- RECORDS -->
+        <section
+            class="records-list"
+            id="recordsList"
+            aria-live="polite"
+        ></section>
+
     </main>
 
-    <div class="record-modal" id="recordModal" hidden>
-        <div class="record-modal-panel" role="dialog" aria-modal="true" aria-labelledby="recordModalTitle">
-            <button class="modal-close" type="button" data-close-record>Close</button>
+
+    <!-- RECORD MODAL -->
+    <div
+        class="record-modal"
+        id="recordModal"
+        hidden
+    >
+
+        <div
+            class="record-modal-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="recordModalTitle"
+        >
+
+            <button
+                class="modal-close"
+                type="button"
+                data-close-record
+            >
+                Close
+            </button>
+
             <div id="recordModalContent"></div>
+
         </div>
+
     </div>
+
+
+    <!-- HEADER HEIGHT -->
     <script>
         (function () {
+
             function setHeaderHeight() {
-                const header = document.querySelector('.assessment-header, .result-header');
+
+                const header = document.querySelector(
+                    '.assessment-header, .result-header'
+                );
+
                 if (!header) return;
+
                 const height = header.offsetHeight;
-                document.documentElement.style.setProperty('--header-h', (height + 16) + 'px');
-                // +16px gives a small visible gap so content doesn't touch the header edge
+
+                document.documentElement.style.setProperty(
+                    '--header-h',
+                    (height + 16) + 'px'
+                );
             }
 
-            window.addEventListener('load', setHeaderHeight);
-            window.addEventListener('resize', setHeaderHeight);
-        })();
-</script>
+            window.addEventListener(
+                'load',
+                setHeaderHeight
+            );
 
+            window.addEventListener(
+                'resize',
+                setHeaderHeight
+            );
+
+        })();
+    </script>
+
+
+    <!-- APP JAVASCRIPT -->
     <script src="app.js"></script>
+
 </body>
 </html>
